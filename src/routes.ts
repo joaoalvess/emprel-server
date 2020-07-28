@@ -12,6 +12,7 @@ const todayController = new TodayController()
 routes.post("/createuser", usersController.create);
 routes.get("/users", usersController.index);
 routes.get("/user/:id", usersController.show);
+routes.post("/user/:id", usersController.delete);
 
 routes.get("/formtoday/:id", todayController.show);
 
