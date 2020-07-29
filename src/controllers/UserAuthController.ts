@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import knex from 'knex'
 
-
 class UserAuthController {
   async show(request : Request, response: Response) {
     const {
@@ -9,9 +8,13 @@ class UserAuthController {
       senha,
     } = request.query
 
-    const auth = await knex('users').where('email', String(email)).where('senha', String(senha))
+    const auth = await knex('users').where('email', String(email)).where('senha', String(senha)).distinct().first()
 
-    return response.json(auth)
+    if(!auth) {
+      return response.status(404).json({messager: "error"})
+    }
+
+    return response.json({...auth})
   }
 }
 
