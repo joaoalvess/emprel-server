@@ -1,1 +1,1 @@
-web: npm start
+web: knex migrate:rollback && migrate:latest && node sever.js
