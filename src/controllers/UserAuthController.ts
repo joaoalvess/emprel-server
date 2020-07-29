@@ -7,10 +7,9 @@ class UserAuthController {
     const {
       email,
       senha,
-    } = request.body
+    } = request.query
 
-    const auth = await knex('users').where('email', email).where('senha', senha)
-
+    const auth = await knex('users').where('email', String(email)).where('senha', String(senha))
 
     return response.json(auth)
   }
