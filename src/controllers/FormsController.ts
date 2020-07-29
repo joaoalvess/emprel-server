@@ -149,7 +149,8 @@ class FormsController{
       febre,
       falta_ar,
       calafrio,
-      temperatura
+      temperatura,
+      apto
     } = request.body
 
     const form = {
@@ -160,7 +161,8 @@ class FormsController{
       febre,
       falta_ar,
       calafrio,
-      temperatura
+      temperatura,
+      apto
     }
 
     const insertId = await knex('forms').insert(form)
