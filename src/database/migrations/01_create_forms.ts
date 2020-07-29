@@ -9,6 +9,7 @@ export async function up(knex: Knex) {
     table.boolean('febre')
     table.boolean('falta_ar')
     table.boolean('calafrio')
+    table.boolean('apto')
     table.decimal('temperatura')
 
     table.integer('user_id').notNullable().references('id').inTable('users')
