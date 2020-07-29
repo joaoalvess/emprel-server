@@ -16,7 +16,7 @@ routes.get("/users", usersController.index);
 routes.get("/user/:id", usersController.show);
 routes.post("/user/:id", usersController.delete);
 
-routes.post("/user", userAuthController.show);
+routes.get("/user", userAuthController.show);
 
 routes.get("/formtoday/:id", todayController.show);
 
