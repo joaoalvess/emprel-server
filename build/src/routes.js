@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = __importDefault(require("express"));
+var UsersController_1 = __importDefault(require("./controllers/UsersController"));
+var FormsController_1 = __importDefault(require("./controllers/FormsController"));
+var TodayController_1 = __importDefault(require("./controllers/TodayController"));
+var routes = express_1.default.Router();
+var usersController = new UsersController_1.default();
+var formsController = new FormsController_1.default();
+var todayController = new TodayController_1.default();
+routes.post("/createuser", usersController.create);
+routes.get("/users", usersController.index);
+routes.get("/user/:id", usersController.show);
+routes.get("/formtoday/:id", todayController.show);
+routes.post("/createform/:id", formsController.create);
+routes.get("/form/:id", formsController.show);
+routes.get("/form", formsController.index);
+exports.default = routes;
