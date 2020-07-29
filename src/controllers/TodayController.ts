@@ -14,7 +14,9 @@ class TodayController {
 
     const otario = console.log('otario')
 
-    return response.json(forms)
+    return response.json({
+      ...forms
+    })
   }
 }
 
