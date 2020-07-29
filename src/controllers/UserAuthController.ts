@@ -6,12 +6,12 @@ class UserAuthController {
     const {
       email,
       senha,
-    } = request.body
+    } = request.query
 
     const auth = await knex('users').where('email', String(email)).where('senha', String(senha)).first()
 
     if(!auth) {
-      return response.status(404).json({messager: "error"})
+      return response.status(404).json({messager: "Usuario ou senha incorreto"})
     }
 
     return response.json({...auth})
