@@ -5,99 +5,69 @@ class FormsController{
   async index(request: Request, response: Response) {
     const { 
       data, 
+      infectado,
       contato_infectado, 
       tosse, 
       febre, 
       falta_ar, 
       calafrio, 
-      temperatura 
+      garganta,
+      cabeça,
+      corpo
     } = request.query
 
-    const form = await knex('forms')
+    const select = request.body.select
 
-    if(!data && !contato_infectado && !tosse && !febre && !falta_ar && !calafrio && !temperatura){
-      return response.json(form)
+    switch (select) {
+      case "data":
+        const filterData = await knex('forms').where('data', String(data))
+        response.json(filterData)
+      break
+      case "infectado":
+        const filterInfectado = await knex('forms').where('infectado', Boolean(infectado))
+        response.json(filterInfectado)
+      break
+      case "contato_infectado":
+        const filterContato = await knex('forms').where('contato_infectado', Boolean(contato_infectado))
+        response.json(filterContato)
+      break
+      case "tosse":
+        const filterTosse = await knex('forms').where('tosse', Boolean(tosse))
+        response.json(filterTosse)
+      break
+      case "febre":
+        const filterFebre = await knex('forms').where('febre', Boolean(febre))
+        response.json(filterFebre)
+      break
+      case "falta_ar":
+        const filterFalta_ar= await knex('forms').where('falta_ar', Boolean(falta_ar))
+        response.json(filterFalta_ar)
+      break
+      case "calafrio":
+        const filterCalafrio= await knex('forms').where('calafrio', Boolean(calafrio))
+        response.json(filterCalafrio)
+      break
+      case "garganta":
+        const filterGarganta = await knex('forms').where('garganta', Boolean(garganta))
+        response.json(filterGarganta)
+      break
+      case "cabeça":
+        const filterCabeça = await knex('forms').where('cabeça', Boolean(cabeça))
+        response.json(filterCabeça)
+      break
+      case "corpo":
+        const filterCorpo = await knex('forms').where('corpo', Boolean(corpo))
+        response.json(filterCorpo)
+      break
+      case "temperatura":
+        const filterTemperatura = await knex('forms').where('temperatura', '>=', 37.2)
+        response.json(filterTemperatura)
+      break
+      default:
+        const filterAll = await knex('forms')
+        response.json(filterAll)
+      break
     }
-
-    if(!contato_infectado && !tosse && !febre && !falta_ar && !calafrio && !temperatura) { 
-      const formData = await knex('forms').where('data', Number(data))
-
-      return response.json(formData)
-    }
-
-    if( !contato_infectado && !tosse && !febre && !falta_ar && !calafrio){
-      const formTemperatura = await knex('forms').where('temperatura', '>=', 37.8)
-
-      if(!data){
-        return response.json(formTemperatura)
-      }
-
-      const TempToday = await knex('forms').where('temperatura', '>=', 37.8).where('data', Number(data))
-
-      return response.json(TempToday)
-    }
-
-    if( !tosse && !febre && !falta_ar && !calafrio && !temperatura) {
-      const formContato = await knex('forms').where('contato_infectado', '=', true)
-      
-      if(!data){
-        return response.json(formContato)
-      }
-
-      const ContatoToday = await knex('forms').where('contato_infectado', '=', true).where('data', Number(data))
-
-      return response.json(ContatoToday)
-    }
-
-    if( !contato_infectado && !febre && !falta_ar && !calafrio && !temperatura) {
-      const formTosse = await knex('forms').where('tosse', '=', true)
-
-      if(!data){
-        return response.json(formTosse)
-      }
-
-      const tosseToday = await knex('forms').where('tosse', '=', true).where('data', Number(data))
-
-      return response.json(tosseToday)
-    }
-
-    if( !contato_infectado && !tosse && !falta_ar && !calafrio && !temperatura) {
-      const formFebre = await knex('forms').where('febre', '=', true)
-      
-      if(!data){
-        return response.json(formFebre)
-      }
-
-      const febreToday = await knex('forms').where('febre', '=', true).where('data', Number(data))
-
-      return response.json(febreToday)
-    }
-
-    if( !contato_infectado && !tosse && !febre && !calafrio && !temperatura) {
-      const formFaltaAr = await knex('forms').where('falta_ar', '=', true)
-      
-      if(!data){
-        return response.json(formFaltaAr)
-      }
-
-      const faltaArToday = await knex('forms').where('falta_ar', '=', true).where('data', Number(data))
-
-      return response.json(faltaArToday)
-    }
-
-    if( !contato_infectado && !tosse && !febre && !falta_ar && !temperatura) {
-      const formCalafrio = await knex('forms').where('calafrio', '=', true)
-      
-      if(!data){
-        return response.json(formCalafrio)
-      }
-
-      const calafrioToday = await knex('forms').where('calafrio', '=', true).where('data', Number(data))
-
-      return response.json(calafrioToday)
-    }
-        
-    return response.status(404).json({message:"error"})
   }
 
   async show(request: Request, response: Response) {
@@ -122,10 +92,7 @@ class FormsController{
 
     return response.json({
       ...form,
-        nome,
-        email,
-        cpf,
-        matricula
+      ...user
     })
   }
 
@@ -144,11 +111,15 @@ class FormsController{
 
     const {
       data,
+      infectado,
       contato_infectado,
       tosse,
       febre,
       falta_ar,
       calafrio,
+      garganta,
+      cabeça,
+      corpo,
       temperatura,
       apto
     } = request.body
@@ -156,11 +127,15 @@ class FormsController{
     const form = {
       user_id,
       data,
+      infectado,
       contato_infectado,
       tosse,
       febre,
       falta_ar,
       calafrio,
+      garganta,
+      cabeça,
+      corpo,
       temperatura,
       apto
     }

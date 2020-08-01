@@ -12,8 +12,6 @@ class TodayController {
       return response.status(404).json({messager: "error"})
     }
 
-    const otario = console.log('otario')
-
     return response.json({
       ...forms
     })
