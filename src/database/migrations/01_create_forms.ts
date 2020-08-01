@@ -3,14 +3,18 @@ import Knex from 'knex'
 export async function up(knex: Knex) {
   return knex.schema.createTable('forms', table => {
     table.increments('id').primary();
-    table.boolean('contato_infectado')
-    table.string('data')
-    table.boolean('tosse')
-    table.boolean('febre')
-    table.boolean('falta_ar')
-    table.boolean('calafrio')
-    table.boolean('apto')
-    table.decimal('temperatura')
+    table.boolean('infectado').notNullable()
+    table.boolean('contato_infectado').notNullable()
+    table.string('data').notNullable()
+    table.boolean('tosse').notNullable()
+    table.boolean('febre').notNullable()
+    table.boolean('falta_ar').notNullable()
+    table.boolean('calafrio').notNullable()
+    table.boolean('garganta').notNullable()
+    table.boolean('cabeça').notNullable()
+    table.boolean('corpo').notNullable()
+    table.boolean('apto').notNullable()
+    table.decimal('temperatura').notNullable()
 
     table.integer('user_id').notNullable().references('id').inTable('users')
   })
