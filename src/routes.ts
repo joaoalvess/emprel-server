@@ -12,9 +12,9 @@ const todayController = new TodayController()
 const userAuthController = new UserAuthController()
 
 routes.post("/createuser", usersController.create);
+routes.delete("/deleteuser/:id", usersController.delete);
 routes.get("/users", usersController.index);
 routes.get("/user/:id", usersController.show);
-routes.post("/user/:id", usersController.delete);
 
 routes.get("/userauth", userAuthController.show);
 
