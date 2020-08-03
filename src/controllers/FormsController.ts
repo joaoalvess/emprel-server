@@ -16,7 +16,7 @@ class FormsController{
       corpo
     } = request.query
 
-    const select = request.body.query
+    const select = request.query.select
 
     switch (select) {
       case "data":
