@@ -19,7 +19,7 @@ routes.get("/users", usersController.index);
 routes.get("/user/:id", usersController.show);
 
 routes.get("/perfil/:id", perfilConroller.show);
-routes.post("/perfil/:id", perfilConroller.update);
+routes.put("/perfil/:id", perfilConroller.update);
 
 routes.get("/userauth", userAuthController.show);
 
