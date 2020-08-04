@@ -9,6 +9,14 @@ class PerfilController {
 
     return response.json(user)
   }
+  async update(request: Request, response: Response) {
+    const { id } = request.params
+    const { senha } = request.body
+
+    const update = await knex('users').where('id', id).update({ senha: senha })
+
+    return response.json(update)
+  }
 }
 
 export default PerfilController
