@@ -2,15 +2,6 @@ import {Request, Response} from 'express'
 import knex from '../database/connection'
 
 interface Photo {
-  fieldname: string;
-  originalname: string;
-  encoding: string;
-  mimetype: string;
-  size: number;
-  destination: string;
-  filename: string;
-  path: string;
-  buffer: Buffer;
   location: String
 }
 class PhotoController {
