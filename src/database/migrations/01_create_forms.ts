@@ -13,6 +13,8 @@ export async function up(knex: Knex) {
     table.boolean('garganta').notNullable()
     table.boolean('cabeça').notNullable()
     table.boolean('corpo').notNullable()
+    table.boolean('olfato').notNullable()
+    table.boolean('paladar').notNullable()
     table.boolean('apto').notNullable()
     table.decimal('temperatura').notNullable()
 

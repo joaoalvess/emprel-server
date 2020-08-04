@@ -52,6 +52,8 @@ function up(knex) {
                     table.boolean('garganta').notNullable();
                     table.boolean('cabeça').notNullable();
                     table.boolean('corpo').notNullable();
+                    table.boolean('olfato').notNullable();
+                    table.boolean('paladar').notNullable();
                     table.boolean('apto').notNullable();
                     table.decimal('temperatura').notNullable();
                     table.integer('user_id').notNullable().references('id').inTable('users');

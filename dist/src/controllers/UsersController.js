@@ -118,7 +118,8 @@ var UsersController = /** @class */ (function () {
                             senha: senha,
                             cpf: cpf,
                             matricula: matricula,
-                            url: "https://emprel-storage.s3.amazonaws.com/ae57d3043bc495181edb1b261abcd852-usericon.png"
+                            url: "https://emprel-storage.s3.amazonaws.com/ae57d3043bc495181edb1b261abcd852-usericon.png",
+                            adm: false
                         };
                         return [4 /*yield*/, connection_1.default('users').insert(user)];
                     case 1:

@@ -13,6 +13,8 @@ class FormsController{
       calafrio, 
       garganta,
       cabeça,
+      olfato,
+      paladar,
       corpo
     } = request.query
 
@@ -64,6 +66,14 @@ class FormsController{
       case "corpo":
         const filterCorpo = await knex('forms').where('corpo', Boolean(corpo))
         response.json(filterCorpo)
+      break
+      case "olfato":
+        const filterOlfato = await knex('forms').where('corpo', Boolean(olfato))
+        response.json(filterOlfato)
+      break
+      case "paladar":
+        const filterPaladar = await knex('forms').where('corpo', Boolean(paladar))
+        response.json(filterPaladar)
       break
       case "temperatura":
         const filterTemperatura = await knex('forms').where('temperatura', '>=', 37.2)
@@ -119,6 +129,8 @@ class FormsController{
       garganta,
       cabeça,
       corpo,
+      olfato,
+      paladar,
       temperatura,
       apto
     } = request.body
@@ -135,6 +147,8 @@ class FormsController{
       garganta,
       cabeça,
       corpo,
+      olfato,
+      paladar,
       temperatura,
       apto
     }

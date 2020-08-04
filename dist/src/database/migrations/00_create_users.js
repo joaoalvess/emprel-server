@@ -48,6 +48,7 @@ function up(knex) {
                     table.integer('cpf', 11).notNullable();
                     table.integer('matricula').notNullable();
                     table.string('url').notNullable();
+                    table.boolean('adm').notNullable();
                 })];
         });
     });
