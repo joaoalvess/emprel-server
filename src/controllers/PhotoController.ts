@@ -7,11 +7,9 @@ interface Photo {
 class PhotoController {
   async update(request: Request, response: Response) {
     const { id } = request.params
-    const { location } = request.file as unknown as Photo
 
 
-
-    await knex('users').where('id', id).update({ url: location })
+    await knex('users').where('id', id)
 
     return response.json({messager: "sucess"})
   }
