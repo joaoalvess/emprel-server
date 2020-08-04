@@ -13,9 +13,9 @@ class PerfilController {
     const { id } = request.params
     const { senha } = request.body
 
-    const update = await knex('users').where('id', id).update({ senha: senha })
+    await knex('users').where('id', id).update({ senha: senha })
 
-    return response.json(update)
+    return response.json({messager: "senha atualizada"})
   }
 }
 
