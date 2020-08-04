@@ -3,7 +3,7 @@ import knex from '../database/connection'
 
 class PerfilController {
   async show(request: Request, response: Response) {
-    const { id, nome } = request.params
+    const { id } = request.params
 
     const user = await knex('users').where('id', id).first()
 

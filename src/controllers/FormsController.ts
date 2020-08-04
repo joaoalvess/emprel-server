@@ -26,8 +26,7 @@ class FormsController{
         const user = await knex('users').where('id', [users.user_id])
 
         response.json({
-          ...filterData,
-            users
+          ...filterData
         })
       break
       case "infectado":
@@ -89,13 +88,6 @@ class FormsController{
     const { user_id } = form
 
     const user = await knex('users').where('id', user_id).first()
-
-    const {
-      nome,
-      email,
-      cpf,
-      matricula
-    } = user
 
     return response.json({
       ...form,
