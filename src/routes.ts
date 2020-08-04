@@ -17,7 +17,8 @@ routes.post("/createuser", usersController.create);
 routes.delete("/deleteuser/:id", usersController.delete);
 routes.get("/users", usersController.index);
 routes.get("/user/:id", usersController.show);
-routes.get("/perfil", perfilConroller.show);
+
+routes.get("/perfil/:id", perfilConroller.show);
 
 routes.get("/userauth", userAuthController.show);
 
