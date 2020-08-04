@@ -1,25 +1,31 @@
 import express from 'express';
+import multer from 'multer'
+const multerConfig = require('./config/multer')
 
 import UsersController from './controllers/UsersController'
 import FormsController from './controllers/FormsController'
 import TodayController from './controllers/TodayController'
 import UserAuthController from './controllers/UserAuthController'
-import PerfilConroller from './controllers/PerfilController'
+import PerfilController from './controllers/PerfilController'
+import PhotoController from './controllers/PhotoController'
 
 const routes = express.Router();
 const usersController = new UsersController()
 const formsController = new FormsController()
 const todayController = new TodayController()
 const userAuthController = new UserAuthController()
-const perfilConroller = new PerfilConroller()
+const perfilController = new PerfilController()
+const photoController = new PhotoController()
 
 routes.post("/createuser", usersController.create);
 routes.delete("/deleteuser/:id", usersController.delete);
 routes.get("/users", usersController.index);
 routes.get("/user/:id", usersController.show);
 
-routes.get("/perfil/:id", perfilConroller.show);
-routes.put("/perfil/:id", perfilConroller.update);
+routes.get("/perfil/:id", perfilController.show);
+routes.put("/perfil/:id", perfilController.update);
+
+routes.post("/photo/:id", multer(multerConfig).single('file'), photoController.update);
 
 routes.get("/userauth", userAuthController.show);
 
