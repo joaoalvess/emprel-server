@@ -6,10 +6,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
-    "start": "ts-node src/server.ts",
-    "build": "tsc --outDir dist",
     "knex-migrations": "knex --knexfile knexfile.ts migrate:latest",
-    "knex-seeds": "knex --knexfile knexfile.ts seed:run"
+    "knex-seeds": "knex --knexfile knexfile.ts seed:run",
+    "build": "tsc --outDir dist",
+    "dist-knex-migrations": "knex --knexfile dist/knexfile.js migrate:latest",
+    "dist-knex-seeds": "knex --knexfile dist/knexfile.js seed:run",
+    "start": "node dist/src/server.js"
   },
   "dependencies": {
     "@types/cors": "^2.8.6",

@@ -27,7 +27,9 @@ const storageTypes = {
     acl: 'public-read',
     key: (req: Request, file: Express.MulterS3.File, callback: any) => {
       crypto.randomBytes(16, (err, hash) => {
-        if (err) callback(err)
+        if (err) {
+          callback(err)
+        }
 
         const filename = `${hash.toString('hex')}-${file.originalname}`
 
@@ -43,7 +45,7 @@ module.exports = {
   limits: {
     fileSize: 4 * 1024 * 1024
   },
-  fileFilter: (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+  fileFilter: (req : Request, file: Express.Multer.File, cb: FileFilterCallback) => {
     const allowedMimes = [
       "image/jpeg",
       "image/pjpeg",
