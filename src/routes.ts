@@ -25,7 +25,7 @@ routes.get("/user/:id", usersController.show);
 routes.get("/perfil/:id", perfilController.show);
 routes.put("/perfil/:id", perfilController.update);
 
-routes.post("/photo/:id", multer(multerConfig).single('file'), photoController.update);
+routes.put("/photo/:id", multer(multerConfig).single('file'), photoController.update);
 
 routes.get("/userauth", userAuthController.show);
 
