@@ -7,6 +7,7 @@ import FormsController from './controllers/FormsController'
 import TodayController from './controllers/TodayController'
 import UserAuthController from './controllers/UserAuthController'
 import PerfilController from './controllers/PerfilController'
+import TempController from './controllers/TempController'
 import PhotoController from './controllers/PhotoController'
 
 const routes = express.Router();
@@ -15,6 +16,7 @@ const formsController = new FormsController()
 const todayController = new TodayController()
 const userAuthController = new UserAuthController()
 const perfilController = new PerfilController()
+const tempController = new TempController()
 const photoController = new PhotoController()
 
 routes.post("/createuser", usersController.create);
@@ -24,6 +26,8 @@ routes.get("/user/:id", usersController.show);
 
 routes.get("/perfil/:id", perfilController.show);
 routes.put("/perfil/:id", perfilController.update);
+
+routes.put("/formtemp/:id", tempController.update);
 
 routes.put("/photo/:id", multer(multerConfig).single('file'), photoController.update);
 
