@@ -1,9 +1,8 @@
-import knex from 'knex'
-import path from 'path'
+import knex from "knex"
 
 const connection = knex({
-  client: 'pg',
-  connection: process.env.HEROKU_POSTGRESQL_COPPER_URL,
+  client: "pg",
+  connection: process.env.DATABASE_URL,
   useNullAsDefault: true
 })
 

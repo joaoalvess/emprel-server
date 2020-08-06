@@ -40,23 +40,24 @@ exports.down = exports.up = void 0;
 function up(knex) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, knex.schema.createTable('forms', function (table) {
-                    table.increments('id').primary();
-                    table.boolean('infectado').notNullable();
-                    table.boolean('contato_infectado').notNullable();
-                    table.string('data').notNullable();
-                    table.boolean('tosse').notNullable();
-                    table.boolean('febre').notNullable();
-                    table.boolean('falta_ar').notNullable();
-                    table.boolean('calafrio').notNullable();
-                    table.boolean('garganta').notNullable();
-                    table.boolean('cabeça').notNullable();
-                    table.boolean('corpo').notNullable();
-                    table.boolean('olfato').notNullable();
-                    table.boolean('paladar').notNullable();
-                    table.boolean('apto').notNullable();
-                    table.decimal('temperatura').notNullable();
-                    table.integer('user_id').notNullable().references('id').inTable('users');
+            return [2 /*return*/, knex.schema.createTable("forms", function (table) {
+                    table.increments("id").primary();
+                    table.boolean("infectado").notNullable();
+                    table.boolean("contato_infectado").notNullable();
+                    table.string("data").notNullable();
+                    table.boolean("tosse").notNullable();
+                    table.boolean("febre").notNullable();
+                    table.boolean("falta_ar").notNullable();
+                    table.boolean("calafrio").notNullable();
+                    table.boolean("garganta").notNullable();
+                    table.boolean("cabeça").notNullable();
+                    table.boolean("corpo").notNullable();
+                    table.boolean("olfato").notNullable();
+                    table.boolean("paladar").notNullable();
+                    table.boolean("aptoform").notNullable();
+                    table.boolean("aptotemp").notNullable();
+                    table.decimal("temperatura").notNullable();
+                    table.integer("user_id").notNullable().references("id").inTable("users");
                 })];
         });
     });
@@ -65,7 +66,7 @@ exports.up = up;
 function down(knex) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, knex.schema.dropTable('forms')];
+            return [2 /*return*/, knex.schema.dropTable("forms")];
         });
     });
 }

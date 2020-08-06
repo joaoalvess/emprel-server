@@ -51,8 +51,8 @@ class UsersController{
       senha,
       cpf,
       matricula,
-      url: "https://emprel-storage.s3.amazonaws.com/ae57d3043bc495181edb1b261abcd852-usericon.png",
-      adm: false
+      adm: false,
+      root: false
     }
 
     const insertId = await knex('users').insert(user)
