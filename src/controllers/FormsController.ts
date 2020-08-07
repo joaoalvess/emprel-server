@@ -68,11 +68,11 @@ class FormsController{
         response.json(filterCorpo)
       break
       case "olfato":
-        const filterOlfato = await knex('forms').where('corpo', Boolean(olfato))
+        const filterOlfato = await knex('forms').where('olfato', Boolean(olfato))
         response.json(filterOlfato)
       break
       case "paladar":
-        const filterPaladar = await knex('forms').where('corpo', Boolean(paladar))
+        const filterPaladar = await knex('forms').where('paladar', Boolean(paladar))
         response.json(filterPaladar)
       break
       case "temperatura":
@@ -132,7 +132,8 @@ class FormsController{
       olfato,
       paladar,
       temperatura,
-      apto
+      aptoform,
+      aptotemp
     } = request.body
 
     const form = {
@@ -150,19 +151,17 @@ class FormsController{
       olfato,
       paladar,
       temperatura,
-      apto
+      aptoform,
+      aptotemp
     }
 
     const insertId = await knex('forms').insert(form)
 
     const form_id = insertId[0]
 
-    const estaApto = insertId[apto]
-
     return response.json({
       form_id,
       ...form,
-      estaApto
     })
   }
 }
