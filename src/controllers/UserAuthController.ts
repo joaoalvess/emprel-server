@@ -4,11 +4,11 @@ import knex from '../database/connection'
 class UserAuthController {
   async show(request : Request, response: Response) {
     const {
-      email,
+      cpf,
       senha,
     } = request.query
 
-    const auth = await knex('users').where('email', String(email)).where('senha', String(senha)).first()
+    const auth = await knex('users').where('email', String(cpf)).where('senha', String(senha)).first()
 
     if(!auth) {
       return response.status(404).json({messager: "Usuario ou senha incorreto"})
