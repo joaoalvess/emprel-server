@@ -23,9 +23,6 @@ class FormsController{
     switch (select) {
       case "data":
         const filterData = await knex('forms').where('data', String(data))
-        const [users] = filterData
-
-        const user = await knex('users').where('id', [users.user_id])
 
         response.json({
           ...filterData
