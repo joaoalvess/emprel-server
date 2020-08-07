@@ -108,7 +108,7 @@ class FormsController{
       return response.status(400).json({ message: "Usuario não encontrado" })
     }
 
-    const { id } = user
+    const { id, nome, numero, email, matricula, cpf } = user
 
     const user_id = id
 
@@ -126,8 +126,7 @@ class FormsController{
       olfato,
       paladar,
       temperatura,
-      aptoform,
-      aptotemp
+      apto,
     } = request.body
 
     const form = {
@@ -145,8 +144,12 @@ class FormsController{
       olfato,
       paladar,
       temperatura,
-      aptoform,
-      aptotemp
+      apto,
+      nome, 
+      numero, 
+      email,
+      matricula, 
+      cpf
     }
 
     const insertId = await knex('forms').insert(form)

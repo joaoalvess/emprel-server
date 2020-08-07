@@ -8,6 +8,7 @@ export async function up(knex: Knex) {
     table.string("senha").notNullable()
     table.string("cpf").notNullable()
     table.integer("matricula").notNullable()
+    table.integer("numero").notNullable()
     table.boolean("adm").notNullable()
     table.boolean("root").notNullable()
   })
