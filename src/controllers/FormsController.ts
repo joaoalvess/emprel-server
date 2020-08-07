@@ -126,7 +126,8 @@ class FormsController{
       olfato,
       paladar,
       temperatura,
-      apto,
+      aptoform,
+      aptotemp
     } = request.body
 
     const form = {
@@ -144,12 +145,8 @@ class FormsController{
       olfato,
       paladar,
       temperatura,
-      apto,
-      nome, 
-      numero, 
-      email,
-      matricula, 
-      cpf
+      aptoform,
+      aptotemp
     }
 
     const insertId = await knex('forms').insert(form)
