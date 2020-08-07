@@ -23,7 +23,6 @@ class FormsController{
     switch (select) {
       case "data":
         const filterData = await knex('forms').where('data', String(data))
-
         response.json(filterData)
       break
       case "infectado":
