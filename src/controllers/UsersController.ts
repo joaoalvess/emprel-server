@@ -43,6 +43,7 @@ class UsersController{
       senha,
       cpf,
       matricula,
+      numero
     } = request.body
 
     const user = {
@@ -51,6 +52,7 @@ class UsersController{
       senha,
       cpf,
       matricula,
+      numero,
       adm: false,
       root: false
     }
