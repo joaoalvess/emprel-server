@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -51,27 +40,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var connection_1 = __importDefault(require("../database/connection"));
-var UserAuthController = /** @class */ (function () {
-    function UserAuthController() {
+var UserNotToday = /** @class */ (function () {
+    function UserNotToday() {
     }
-    UserAuthController.prototype.show = function (request, response) {
+    UserNotToday.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, cpf, senha, auth;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var data, forms, users;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        _a = request.query, cpf = _a.cpf, senha = _a.senha;
-                        return [4 /*yield*/, connection_1.default('users').where('cpf', String(cpf)).where('senha', String(senha)).first()];
+                        data = request.query.data;
+                        return [4 /*yield*/, connection_1.default('forms').where('data', String(data))];
                     case 1:
-                        auth = _b.sent();
-                        if (!auth) {
-                            return [2 /*return*/, response.status(404).json({ messager: "Usuario ou senha incorreto" })];
+                        forms = _a.sent();
+                        if (!forms) {
+                            return [2 /*return*/, response.status(404).json({ messager: "error" })];
                         }
-                        return [2 /*return*/, response.json(__assign({}, auth))];
+                        return [4 /*yield*/, connection_1.default('users')
+                                .join('forms', 'users.id', '=', 'forms.user_id')];
+                    case 2:
+                        users = _a.sent();
+                        return [2 /*return*/, response.json(users)];
                 }
             });
         });
     };
-    return UserAuthController;
+    return UserNotToday;
 }());
-exports.default = UserAuthController;
+exports.default = UserNotToday;

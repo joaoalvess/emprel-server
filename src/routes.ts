@@ -7,6 +7,7 @@ import FormsController from './controllers/FormsController'
 import TodayController from './controllers/TodayController'
 import UserAuthController from './controllers/UserAuthController'
 import PerfilController from './controllers/PerfilController'
+import UserNotToday from './controllers/UserNotToday'
 import TempController from './controllers/TempController'
 import PhotoController from './controllers/PhotoController'
 
@@ -16,6 +17,7 @@ const formsController = new FormsController()
 const todayController = new TodayController()
 const userAuthController = new UserAuthController()
 const perfilController = new PerfilController()
+const userNotToday = new UserNotToday()
 const tempController = new TempController()
 const photoController = new PhotoController()
 
@@ -32,6 +34,8 @@ routes.put("/formtemp/:id", tempController.update);
 routes.put("/photo/:id", multer(multerConfig).single('file'), photoController.update);
 
 routes.get("/userauth", userAuthController.show);
+
+routes.get("/usernottoday", userNotToday.show);
 
 routes.get("/formtoday/:id", todayController.show);
 

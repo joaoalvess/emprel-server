@@ -107,17 +107,18 @@ var UsersController = /** @class */ (function () {
     };
     UsersController.prototype.create = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, nome, email, senha, cpf, matricula, user, insertId, user_id;
+            var _a, nome, email, senha, cpf, matricula, numero, user, insertId, user_id;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = request.body, nome = _a.nome, email = _a.email, senha = _a.senha, cpf = _a.cpf, matricula = _a.matricula;
+                        _a = request.body, nome = _a.nome, email = _a.email, senha = _a.senha, cpf = _a.cpf, matricula = _a.matricula, numero = _a.numero;
                         user = {
                             nome: nome,
                             email: email,
                             senha: senha,
                             cpf: cpf,
                             matricula: matricula,
+                            numero: numero,
                             adm: false,
                             root: false
                         };

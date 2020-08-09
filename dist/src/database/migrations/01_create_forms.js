@@ -54,9 +54,13 @@ function up(knex) {
                     table.boolean("corpo").notNullable();
                     table.boolean("olfato").notNullable();
                     table.boolean("paladar").notNullable();
-                    table.boolean("aptoform").notNullable();
-                    table.boolean("aptotemp").notNullable();
+                    table.boolean("apto").notNullable();
                     table.decimal("temperatura").notNullable();
+                    table.string("nome").notNullable();
+                    table.string("email").notNullable();
+                    table.string("matricula").notNullable();
+                    table.integer("numero").notNullable();
+                    table.string("cpf").notNullable();
                     table.integer("user_id").notNullable().references("id").inTable("users");
                 })];
         });
