@@ -3,21 +3,15 @@ import knex from '../database/connection'
 
 class UserNotToday {
   async show(request: Request, response: Response) {
-    const { data } = request.body
+    const { id } = request.body
 
-    const forms = await knex('forms').where('data', String(data))
+    const users = await knex('forms').whereNotIn('data', [id])
 
-    if(!forms) {
+    if(!users) {
       return response.status(404).json({messager: "error"})
     }
 
-    const users = await knex('users')
-      .join('forms', 'users.id', '=',  'forms.user_id')
-      .where('forms.user_id', 'user.id')
-
-    return response.json({
-      ...users
-    })
+    return response.json(users)
   }
 }
 
