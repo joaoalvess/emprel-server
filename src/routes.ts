@@ -35,7 +35,7 @@ routes.put("/photo/:id", multer(multerConfig).single('file'), photoController.up
 
 routes.get("/userauth", userAuthController.show);
 
-routes.get("/usernottoday/:data", userNotToday.show);
+routes.get("/usernottoday", userNotToday.show);
 
 routes.get("/formtoday/:id", todayController.show);
 
