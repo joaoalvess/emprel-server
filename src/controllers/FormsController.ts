@@ -126,6 +126,7 @@ class FormsController{
       olfato,
       paladar,
       temperatura,
+      count,
       apto
     } = request.body
 
@@ -148,7 +149,8 @@ class FormsController{
       nome, 
       numero, 
       email, 
-      matricula, 
+      matricula,
+      count, 
       cpf
     }
 
