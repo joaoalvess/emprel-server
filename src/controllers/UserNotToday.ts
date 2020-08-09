@@ -3,7 +3,7 @@ import knex from '../database/connection'
 
 class UserNotToday {
   async show(request: Request, response: Response) {
-    const { data } = request.query
+    const { data } = request.params
 
     const forms = await knex('forms').where('data', String(data))
 
