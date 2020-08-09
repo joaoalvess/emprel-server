@@ -14,7 +14,9 @@ class UserNotToday {
     const users = await knex('users')
       .join('forms', 'users.id', '=',  'forms.user_id')
 
-    return response.json(users)
+    return response.json({
+      ...users
+    })
   }
 }
 
