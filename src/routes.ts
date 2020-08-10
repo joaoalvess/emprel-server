@@ -26,6 +26,12 @@ routes.delete("/deleteuser/:id", usersController.delete);
 routes.get("/users", usersController.index);
 routes.get("/user/:id", usersController.show);
 
+routes.put("/updateusername/:id", usersController.updateNome);
+routes.put("/updateusernumber/:id", usersController.updateNumber);
+routes.put("/updateuseremail/:id", usersController.updateEmail);
+routes.put("/updateusercpf/:id", usersController.updateCpf);
+routes.put("/updateusermatricula/:id", usersController.updateMatricula);
+
 routes.get("/perfil/:id", perfilController.show);
 routes.put("/perfil/:id", perfilController.update);
 

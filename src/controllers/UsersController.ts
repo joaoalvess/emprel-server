@@ -2,6 +2,46 @@ import { Request, Response } from 'express'
 import knex from '../database/connection'
 
 class UsersController{
+  async updateNome(request: Request, response: Response) {
+    const { id } = request.params
+    const { nome } = request.body
+
+    await knex('users').where('id', id).update({ nome: nome })
+
+    return response.json({messager: "nome atualizada"})
+  }
+  async updateMatricula(request: Request, response: Response) {
+    const { id } = request.params
+    const { matricula } = request.body
+
+    await knex('users').where('id', id).update({ matricula: matricula })
+
+    return response.json({messager: "matricula atualizada"})
+  }
+  async updateEmail(request: Request, response: Response) {
+    const { id } = request.params
+    const { email } = request.body
+
+    await knex('users').where('id', id).update({ email: email })
+
+    return response.json({messager: "email atualizada"})
+  }
+  async updateNumber(request: Request, response: Response) {
+    const { id } = request.params
+    const { numero } = request.body
+
+    await knex('users').where('id', id).update({ numero: numero })
+
+    return response.json({messager: "numero atualizada"})
+  }
+  async updateCpf(request: Request, response: Response) {
+    const { id } = request.params
+    const { cpf } = request.body
+
+    await knex('users').where('id', id).update({ cpf: cpf })
+
+    return response.json({messager: "cpf atualizada"})
+  }
   async show(request: Request, response: Response) {
     const { id } = request.params
     const { data } = request.query
