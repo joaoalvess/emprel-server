@@ -18,7 +18,14 @@ class FormsController{
       corpo
     } = request.query
 
+    const notsend = request.query.inapto
+    const inapto = request.query.inapto
     const select = request.query.select
+
+    if(notsend) {
+      const naoEnviado = await knex('forms').where('apto', false).where('data', String(data))
+      return response.json(naoEnviado)
+    }
 
     switch (select) {
       case "data":
