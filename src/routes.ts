@@ -47,6 +47,7 @@ routes.get("/formtoday/:id", todayController.show);
 
 routes.post("/createform/:id", formsController.create);
 routes.get("/form/:id", formsController.show);
-routes.get("/form", formsController.index);
+routes.get("/formselect", formsController.indexSelect);
+routes.get("/forminapto", formsController.indexInapto);
 
 export default routes;
