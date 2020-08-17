@@ -37,7 +37,7 @@ routes.put("/updateusermatricula/:id", usersController.updateMatricula);
 routes.get("/perfil/:id", perfilController.show);
 routes.put("/perfil/:id", perfilController.update);
 
-routes.put("/send", passRecover.show);
+routes.get("/send", passRecover.show);
 
 routes.put("/formtemp/:id", tempController.update);
 
