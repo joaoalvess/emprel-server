@@ -35,27 +35,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.seed = void 0;
-function seed(knex) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, knex('forms').insert([
-                        { user_id: 1, data: "182020", infectado: false, contato_infectado: true, tosse: true, febre: false, falta_ar: true, calafrio: false, garganta: true, cabeça: false, corpo: true, olfato: true, paladar: true, temperatura: 37.5, apto: false },
-                        { user_id: 1, data: "212020", infectado: false, contato_infectado: false, tosse: false, febre: true, falta_ar: true, calafrio: true, garganta: true, cabeça: false, corpo: true, olfato: true, paladar: true, temperatura: 38.0, apto: false },
-                        { user_id: 4, data: "182020", infectado: false, contato_infectado: true, tosse: true, febre: false, falta_ar: true, calafrio: false, garganta: true, cabeça: false, corpo: true, olfato: true, paladar: true, temperatura: 37.5, apto: false },
-                        { user_id: 4, data: "212020", infectado: false, contato_infectado: false, tosse: false, febre: true, falta_ar: true, calafrio: true, garganta: true, cabeça: false, corpo: true, olfato: true, paladar: true, temperatura: 38.0, apto: false },
-                        { user_id: 7, data: "182020", infectado: false, contato_infectado: true, tosse: true, febre: false, falta_ar: true, calafrio: false, garganta: true, cabeça: false, corpo: true, olfato: true, paladar: true, temperatura: 37.5, apto: false },
-                        { user_id: 7, data: "212020", infectado: false, contato_infectado: false, tosse: false, febre: true, falta_ar: true, calafrio: true, garganta: true, cabeça: false, corpo: true, olfato: true, paladar: true, temperatura: 38.0, apto: false },
-                        { user_id: 10, data: "172020", infectado: false, contato_infectado: false, tosse: false, febre: true, falta_ar: true, calafrio: true, garganta: true, cabeça: false, corpo: true, olfato: true, paladar: true, temperatura: 38.0, apto: false },
-                        { user_id: 10, data: "212020", infectado: false, contato_infectado: false, tosse: false, febre: true, falta_ar: true, calafrio: true, garganta: true, cabeça: false, corpo: true, olfato: true, paladar: true, temperatura: 38.0, apto: false },
-                    ])];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
+var connection_1 = __importDefault(require("../database/connection"));
+var PassRecover = /** @class */ (function () {
+    function PassRecover() {
+    }
+    PassRecover.prototype.show = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, email, cpf, user, pass, selectUser, crypto, code;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = request.body, email = _a.email, cpf = _a.cpf;
+                        user = process.env.USER;
+                        pass = process.env.PASS;
+                        return [4 /*yield*/, connection_1.default('users').where('email', email).where('cpf', cpf).first()];
+                    case 1:
+                        selectUser = _b.sent();
+                        if (!selectUser) {
+                            return [2 /*return*/, response.json({ messager: "usuario não encontrado" })];
+                        }
+                        crypto = require("crypto");
+                        code = crypto.randomBytes(3).toString('hex');
+                        response.json({ user: user, pass: pass });
+                        return [2 /*return*/];
+                }
+            });
         });
-    });
-}
-exports.seed = seed;
+    };
+    return PassRecover;
+}());
+exports.default = PassRecover;

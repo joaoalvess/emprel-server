@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -40,27 +51,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var connection_1 = __importDefault(require("../database/connection"));
-var UserNotToday = /** @class */ (function () {
-    function UserNotToday() {
+var Visit = /** @class */ (function () {
+    function Visit() {
     }
-    UserNotToday.prototype.show = function (request, response) {
+    Visit.prototype.create = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, users;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, data, infectado, contato_infectado, tosse, febre, falta_ar, calafrio, garganta, cabeça, corpo, olfato, paladar, temperatura, count, apto, nome, numero, email, cpf, form, insertId, form_id;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        id = request.body.id;
-                        return [4 /*yield*/, connection_1.default('forms').whereNotIn('data', [id])];
+                        _a = request.body, data = _a.data, infectado = _a.infectado, contato_infectado = _a.contato_infectado, tosse = _a.tosse, febre = _a.febre, falta_ar = _a.falta_ar, calafrio = _a.calafrio, garganta = _a.garganta, cabeça = _a.cabeça, corpo = _a.corpo, olfato = _a.olfato, paladar = _a.paladar, temperatura = _a.temperatura, count = _a.count, apto = _a.apto, nome = _a.nome, numero = _a.numero, email = _a.email, cpf = _a.cpf;
+                        form = {
+                            user_id: 135,
+                            data: data,
+                            infectado: infectado,
+                            contato_infectado: contato_infectado,
+                            tosse: tosse,
+                            febre: febre,
+                            falta_ar: falta_ar,
+                            calafrio: calafrio,
+                            garganta: garganta,
+                            cabeça: cabeça,
+                            corpo: corpo,
+                            olfato: olfato,
+                            paladar: paladar,
+                            temperatura: temperatura,
+                            apto: apto,
+                            nome: nome,
+                            numero: numero,
+                            email: email,
+                            matricula: 'Visitante',
+                            count: count,
+                            cpf: cpf
+                        };
+                        return [4 /*yield*/, connection_1.default('forms').insert(form)];
                     case 1:
-                        users = _a.sent();
-                        if (!users) {
-                            return [2 /*return*/, response.status(404).json({ messager: "error" })];
-                        }
-                        return [2 /*return*/, response.json(users)];
+                        insertId = _b.sent();
+                        form_id = insertId[0];
+                        return [2 /*return*/, response.json(__assign({ form_id: form_id }, form))];
                 }
             });
         });
     };
-    return UserNotToday;
+    return Visit;
 }());
-exports.default = UserNotToday;
+exports.default = Visit;

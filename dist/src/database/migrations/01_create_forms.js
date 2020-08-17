@@ -55,6 +55,7 @@ function up(knex) {
                     table.boolean("olfato").notNullable();
                     table.boolean("paladar").notNullable();
                     table.boolean("apto").notNullable();
+                    table.integer("count").notNullable();
                     table.decimal("temperatura").notNullable();
                     table.string("nome").notNullable();
                     table.string("email").notNullable();

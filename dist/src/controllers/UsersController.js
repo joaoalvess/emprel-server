@@ -54,6 +54,86 @@ var connection_1 = __importDefault(require("../database/connection"));
 var UsersController = /** @class */ (function () {
     function UsersController() {
     }
+    UsersController.prototype.updateNome = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, nome;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = request.params.id;
+                        nome = request.body.nome;
+                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ nome: nome })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, response.json({ messager: "nome atualizada" })];
+                }
+            });
+        });
+    };
+    UsersController.prototype.updateMatricula = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, matricula;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = request.params.id;
+                        matricula = request.body.matricula;
+                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ matricula: matricula })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, response.json({ messager: "matricula atualizada" })];
+                }
+            });
+        });
+    };
+    UsersController.prototype.updateEmail = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, email;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = request.params.id;
+                        email = request.body.email;
+                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ email: email })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, response.json({ messager: "email atualizada" })];
+                }
+            });
+        });
+    };
+    UsersController.prototype.updateNumber = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, numero;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = request.params.id;
+                        numero = request.body.numero;
+                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ numero: numero })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, response.json({ messager: "numero atualizada" })];
+                }
+            });
+        });
+    };
+    UsersController.prototype.updateCpf = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, cpf;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = request.params.id;
+                        cpf = request.body.cpf;
+                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ cpf: cpf })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, response.json({ messager: "cpf atualizada" })];
+                }
+            });
+        });
+    };
     UsersController.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
             var id, data, forms, userData;
