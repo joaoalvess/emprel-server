@@ -27,7 +27,7 @@ class PassRecover {
       from: user,
       to: email, 
       subject: "Recuperação de senha",
-      html: `<h2>Seu codigo de verificação é <strong>${code}</strong></h2>` 
+      html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
     }).then(info => {
       response.json(code)
     }).catch(error => {
