@@ -10,6 +10,7 @@ import PerfilController from './controllers/PerfilController'
 import UserNotToday from './controllers/UserNotToday'
 import TempController from './controllers/TempController'
 import PhotoController from './controllers/PhotoController'
+import PassRecover from './controllers/PassRecover'
 
 const routes = express.Router();
 const usersController = new UsersController()
@@ -20,6 +21,7 @@ const perfilController = new PerfilController()
 const userNotToday = new UserNotToday()
 const tempController = new TempController()
 const photoController = new PhotoController()
+const passRecover = new PassRecover()
 
 routes.post("/createuser", usersController.create);
 routes.delete("/deleteuser/:id", usersController.delete);
@@ -34,6 +36,8 @@ routes.put("/updateusermatricula/:id", usersController.updateMatricula);
 
 routes.get("/perfil/:id", perfilController.show);
 routes.put("/perfil/:id", perfilController.update);
+
+routes.put("/send", passRecover.show);
 
 routes.put("/formtemp/:id", tempController.update);
 
