@@ -46,10 +46,17 @@ class UsersController{
     const { id } = request.params
     const { data } = request.query
 
+    const {nome, email, cpf, matricula} = await knex('users').where('id', id).first()
     const forms = await knex('forms').where('user_id', id)
 
     if(!data){
-      return response.json(forms)
+      return response.json({
+        nome,
+        email,
+        cpf,
+        matricula,
+        ...forms
+      })
     }
 
     const userData = await knex('forms').where('user_id', id).where('data', Number(data)).distinct()

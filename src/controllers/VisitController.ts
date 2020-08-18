@@ -22,7 +22,8 @@ class Visit {
       nome, 
       numero, 
       email,
-      cpf 
+      cpf,
+      matricula 
     } = request.body
 
     const form = {
@@ -44,7 +45,7 @@ class Visit {
       nome, 
       numero, 
       email, 
-      matricula: 'Visitante',
+      matricula,
       count, 
       cpf
     }
