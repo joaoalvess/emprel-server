@@ -2,6 +2,14 @@ import { Request, Response } from 'express'
 import knex from '../database/connection'
 
 class FormsController{
+  async indexNotSend(request: Request, response: Response) {
+    const id = request.body.id
+
+    const users = await knex('users').whereNotIn('id', id)
+
+    return response.json(users)
+  }
+
   async indexInapto(request: Request, response: Response) {
     const { 
       data, 
