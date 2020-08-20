@@ -156,17 +156,17 @@ class FormsController{
         const filterOlfato = await knex('forms').where('olfato', Boolean(olfato)).where('data', String(selectDate))
         response.json(filterOlfato)
       break
+      case "temperatura":
+        const filterTemperatura = await knex('forms').where('temperatura', Number(30.2)).where('data', String(selectDate))
+        response.json(filterTemperatura)
+      break
       case "paladar":
         const filterPaladar = await knex('forms').where('paladar', Boolean(paladar)).where('data', String(selectDate))
         response.json(filterPaladar)
       break
-      case "temperatura":
-        const filterTemperatura = await knex('forms').where('temperatura', 30.2).where('data', String(selectDate))
-        response.json(filterTemperatura)
-      break
       default:
-        const filterAll = await knex('forms')
-        response.json(filterAll)
+        const filterDataDefault = await knex('forms').where('data', String(selectDate))
+        response.json(filterDataDefault)
       break
     }
   }
