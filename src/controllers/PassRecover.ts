@@ -17,7 +17,7 @@ class PassRecover {
     const selectUser = await knex('users').where('email', email).where('cpf', cpf).first()
 
     if(!selectUser){
-      return response.json({messager: "usuario não encontrado"})
+      return 
     }
 
     var crypto = require("crypto");
