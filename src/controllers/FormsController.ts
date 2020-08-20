@@ -161,7 +161,7 @@ class FormsController{
         response.json(filterPaladar)
       break
       case "temperatura":
-        const filterTemperatura = await knex('forms').where('temperatura', '==', 30.2).where('data', String(selectDate))
+        const filterTemperatura = await knex('forms').where('temperatura', 30.2).where('data', String(selectDate))
         response.json(filterTemperatura)
       break
       default:
