@@ -16,6 +16,8 @@ class PassRecover {
 
     const selectUser = await knex('users').where('email', email).where('cpf', cpf).first()
 
+    const { matricula } = selectUser
+
     if(!selectUser){
       return response.status(404).json({ message: "Usuario não encontrado" })
     }
@@ -29,7 +31,10 @@ class PassRecover {
       subject: "Recuperação de senha",
       html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
     }).then(info => {
-      response.json(code)
+      response.json({
+        matricula,
+        code
+      })
     }).catch(error => {
       response.send(error)
     })
