@@ -20,7 +20,7 @@ class PassRecover {
       return response.status(404).json({ message: "Usuario não encontrado" })
     }
 
-    const { matricula } = selectUser
+    const { matricula, id } = selectUser
     
     var crypto = require("crypto");
     var code = crypto.randomBytes(3).toString('hex');
@@ -33,7 +33,8 @@ class PassRecover {
     }).then(info => {
       response.json({
         matricula,
-        code
+        code,
+        id
       })
     }).catch(error => {
       response.send(error)
