@@ -11,6 +11,7 @@ import UserNotToday from './controllers/UserNotToday'
 import TempController from './controllers/TempController'
 import PhotoController from './controllers/PhotoController'
 import PassRecover from './controllers/PassRecover'
+import VisitController from './controllers/VisitController'
 
 const routes = express.Router();
 const usersController = new UsersController()
@@ -22,6 +23,9 @@ const userNotToday = new UserNotToday()
 const tempController = new TempController()
 const photoController = new PhotoController()
 const passRecover = new PassRecover()
+const visitController = new VisitController()
+
+routes.post("/cadastrovisitante", visitController.create);
 
 routes.post("/createuser", usersController.create);
 routes.delete("/deleteuser/:id", usersController.delete);
