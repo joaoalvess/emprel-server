@@ -2,6 +2,13 @@ import { Request, Response } from 'express'
 import knex from '../database/connection'
 
 class PerfilController {
+  async filterShow(request: Request, response: Response) {
+    const { nome } = request.params
+
+    const user = await knex('users').where('nome', nome).first()
+
+    return response.json(user)
+  }
   async show(request: Request, response: Response) {
     const { id } = request.params
 

@@ -163,6 +163,22 @@ class FormsController{
         const filterPaladar = await knex('forms').where('paladar', Boolean(paladar)).where('data', String(selectDate))
         response.json(filterPaladar)
       break
+      case "sintomas":
+        const filterSintomas = await knex('forms')
+          .where('data', String(selectDate))
+          .where('paladar', true)
+          .orWhere('olfato', true)
+          .orWhere('corpo', true)
+          .orWhere('cabeça', true)
+          .orWhere('garganta', true)
+          .orWhere('calafrio', true)
+          .orWhere('falta_ar', true)
+          .orWhere('febre', true)
+          .orWhere('tosse', true)
+          .orWhere('contato_infectado', true)
+
+        response.json(filterSintomas)
+      break
       default:
         const filterDataDefault = await knex('forms').where('data', String(selectDate))
         response.json(filterDataDefault)

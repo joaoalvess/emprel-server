@@ -34,6 +34,7 @@ routes.put("/updateuseremail/:id", usersController.updateEmail);
 routes.put("/updateusercpf/:id", usersController.updateCpf);
 routes.put("/updateusermatricula/:id", usersController.updateMatricula);
 
+routes.get("/perfil/:nome", perfilController.filterShow);
 routes.get("/perfil/:id", perfilController.show);
 routes.put("/perfil/:id", perfilController.update);
 
