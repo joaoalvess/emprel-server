@@ -5,12 +5,12 @@ class FormsController{
   async indexNotSend(request: Request, response: Response) {
     const id = request.body.id
 
-    const test = [id]
+    const test = id
 
-    const users = await knex('users').whereNotIn('id', id)
+    const users = await knex('users').whereNotIn('id', test)
 
     return response.json({
-      test
+      users
     })
   }
 
