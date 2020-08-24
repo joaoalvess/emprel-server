@@ -46,7 +46,7 @@ class UsersController{
     const { id } = request.params
     const { data } = request.query
 
-    const {nome, email, cpf, matricula} = await knex('users').where('id', id).first()
+    const {nome, email, cpf, matricula, numero} = await knex('users').where('id', id).first()
     const forms = await knex('forms').where('user_id', id)
 
     if(!data){
@@ -55,7 +55,8 @@ class UsersController{
         email,
         cpf,
         matricula,
-        ...forms
+        numero,
+        forms
       })
     }
 
