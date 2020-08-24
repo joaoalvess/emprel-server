@@ -3,13 +3,12 @@ import knex from '../database/connection'
 
 class FormsController{
   async indexNotSend(request: Request, response: Response) {
-    const [id] = request.body.id
+    const id = request.body.id
 
     const users = await knex('users').whereNotIn('id', id)
 
     return response.json({
       ...id,
-      ...users
     })
   }
 
