@@ -9,9 +9,7 @@ class FormsController{
 
     const users = await knex('users').whereNotIn('id', test)
 
-    return response.json({
-      users
-    })
+    return response.json(users)
   }
 
   async indexInapto(request: Request, response: Response) {
