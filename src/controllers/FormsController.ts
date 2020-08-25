@@ -112,7 +112,7 @@ class FormsController{
 
     switch (select) {
       case "data":
-        const filterData = await knex('forms').where('data', String(selectDate)).orderBy('nome')
+        const filterData = await knex('forms').where('data', String(selectDate)).whereNot('user_id', 135).orderBy('nome')
         response.json(filterData)
       break
       case "infectado":
@@ -162,6 +162,10 @@ class FormsController{
       case "paladar":
         const filterPaladar = await knex('forms').where('paladar', Boolean(paladar)).where('data', String(selectDate))
         response.json(filterPaladar)
+      break
+      case "visitante":
+        const filterVisitante = await knex('forms').where('user_id', 135).where('data', String(selectDate))
+        response.json(filterVisitante)
       break
       case "sintomas":
         const filterSintomas = await knex('forms')
