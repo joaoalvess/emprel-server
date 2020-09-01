@@ -7,7 +7,7 @@ class FormsController{
 
     const test = id
 
-    const users = await knex('users').whereNotIn('id', test).orderBy('nome')
+    const users = await knex('users').whereNotIn('id', test).whereNot('email', 'inativo').orderBy('nome')
 
     return response.json(users)
   }
