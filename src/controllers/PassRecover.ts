@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer'
 class PassRecover {
   async show(request: Request, response: Response) {
     const { email, cpf } = request.body
+    const orgao = request.params.orgao
 
     const user = process.env.USER
     const pass = process.env.PASS
@@ -14,7 +15,7 @@ class PassRecover {
       auth: {user,pass}
     })
 
-    const selectUser = await knex('users').where('email', email).where('cpf', cpf).first()
+    const selectUser = await knex(`${orgao}users`).where('email', email).where('cpf', cpf).first()
     
     if(!selectUser){
       return response.status(404).json({ message: "Usuario não encontrado" })

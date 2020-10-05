@@ -5,12 +5,13 @@ class TempController {
   async update(request: Request, response: Response) {
     const { id } = request.params
     const { temperatura, apto } = request.body
+    const orgao = request.params.orgao
 
     if(apto == true) {
-      await knex('forms').where('id', id).update({ temperatura: temperatura })
+      await knex(`${orgao}forms`).where('id', id).update({ temperatura: temperatura })
     }
     if(apto == false) {
-      await knex('forms').where('id', id).update({ temperatura: temperatura, apto: apto })
+      await knex(`${orgao}forms`).where('id', id).update({ temperatura: temperatura, apto: apto })
     }
 
     return response.json({messager: "temperatura atualizada"})

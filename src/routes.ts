@@ -25,39 +25,39 @@ const photoController = new PhotoController()
 const passRecover = new PassRecover()
 const visitController = new VisitController()
 
-routes.post("/cadastrovisitante", visitController.create);
+routes.post("/:orgao/cadastrovisitante", visitController.create);
 
 routes.post("/createuser", usersController.create);
-routes.delete("/deleteuser/:id", usersController.delete);
-routes.get("/users", usersController.index);
-routes.get("/user/:id", usersController.show);
+routes.delete("/:orgao/deleteuser/:id", usersController.delete);
+routes.get("/:orgao/users", usersController.index);
+routes.get("/:orgao/user/:id", usersController.show);
 
-routes.put("/updateusername/:id", usersController.updateNome);
-routes.put("/updateusernumber/:id", usersController.updateNumber);
-routes.put("/updateuseremail/:id", usersController.updateEmail);
-routes.put("/updateusercpf/:id", usersController.updateCpf);
-routes.put("/updateusermatricula/:id", usersController.updateMatricula);
+routes.put("/:orgao/updateusername/:id", usersController.updateNome);
+routes.put("/:orgao/updateusernumber/:id", usersController.updateNumber);
+routes.put("/:orgao/updateuseremail/:id", usersController.updateEmail);
+routes.put("/:orgao/updateusercpf/:id", usersController.updateCpf);
+routes.put("/:orgao/updateusermatricula/:id", usersController.updateMatricula);
 
-routes.get("/perfilname/:nome", perfilController.filterShow);
-routes.get("/perfil/:id", perfilController.show);
-routes.put("/perfil/:id", perfilController.update);
+routes.get("/:orgao/perfilname/:nome", perfilController.filterShow);
+routes.get("/:orgao/perfil/:id", perfilController.show);
+routes.put("/:orgao/perfil/:id", perfilController.update);
 
-routes.post("/send", passRecover.show);
+routes.post("/:orgao/send", passRecover.show);
 
-routes.put("/formtemp/:id", tempController.update);
+routes.put("/:orgao/formtemp/:id", tempController.update);
 
-routes.put("/photo/:id", multer(multerConfig).single('file'), photoController.update);
+routes.put("/:orgao/photo/:id", multer(multerConfig).single('file'), photoController.update);
 
-routes.get("/userauth", userAuthController.show);
+routes.get("/:orgao/userauth", userAuthController.show);
 
-routes.get("/usernottoday", userNotToday.show);
+routes.get("/:orgao/usernottoday", userNotToday.show);
 
-routes.get("/formtoday/:id", todayController.show);
+routes.get("/:orgao/formtoday/:id", todayController.show);
 
-routes.post("/createform/:id", formsController.create);
-routes.get("/form/:id", formsController.show);
-routes.get("/formselect", formsController.indexSelect);
-routes.get("/forminapto", formsController.indexInapto);
-routes.post("/formnotsend", formsController.indexNotSend);
+routes.post("/:orgao/createform/:id", formsController.create);
+routes.get("/:orgao/form/:id", formsController.show);
+routes.get("/:orgao/formselect", formsController.indexSelect);
+routes.get("/:orgao/forminapto", formsController.indexInapto);
+routes.post("/:orgao/formnotsend", formsController.indexNotSend);
 
 export default routes;

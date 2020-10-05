@@ -5,8 +5,9 @@ class TodayController {
   async show(request: Request, response: Response) {
     const { id } = request.params
     const { data } = request.query
+    const orgao = request.params.orgao
 
-    const forms = await knex('forms').where('user_id', id).where('data', String(data)).first()
+    const forms = await knex(`${orgao}forms`).where('user_id', id).where('data', String(data)).first()
 
     if(!forms) {
       return response.status(404).json({messager: "error"})

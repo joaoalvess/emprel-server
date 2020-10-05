@@ -3,6 +3,7 @@ import knex from '../database/connection'
 
 class Visit {
   async create(request: Request, response: Response) {
+    const orgao = request.params.orgao
     const {
       data,
       infectado,
@@ -49,7 +50,7 @@ class Visit {
       cpf
     }
 
-    const insertId = await knex('forms').insert(form)
+    const insertId = await knex(`${orgao}forms`).insert(form)
 
     const form_id = insertId[0]
 

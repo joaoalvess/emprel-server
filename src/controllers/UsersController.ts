@@ -5,49 +5,55 @@ class UsersController{
   async updateNome(request: Request, response: Response) {
     const { id } = request.params
     const { nome } = request.body
+    const orgao = request.params.orgao
 
-    await knex('users').where('id', id).update({ nome: nome })
+    await knex(`${orgao}users`).where('id', id).update({ nome: nome })
 
     return response.json({messager: "nome atualizada"})
   }
   async updateMatricula(request: Request, response: Response) {
     const { id } = request.params
     const { matricula } = request.body
+    const orgao = request.params.orgao
 
-    await knex('users').where('id', id).update({ matricula: matricula })
+    await knex(`${orgao}users`).where('id', id).update({ matricula: matricula })
 
     return response.json({messager: "matricula atualizada"})
   }
   async updateEmail(request: Request, response: Response) {
     const { id } = request.params
     const { email } = request.body
+    const orgao = request.params.orgao
 
-    await knex('users').where('id', id).update({ email: email })
+    await knex(`${orgao}users`).where('id', id).update({ email: email })
 
     return response.json({messager: "email atualizada"})
   }
   async updateNumber(request: Request, response: Response) {
     const { id } = request.params
     const { numero } = request.body
+    const orgao = request.params.orgao
 
-    await knex('users').where('id', id).update({ numero: numero })
+    await knex(`${orgao}users`).where('id', id).update({ numero: numero })
 
     return response.json({messager: "numero atualizada"})
   }
   async updateCpf(request: Request, response: Response) {
     const { id } = request.params
     const { cpf } = request.body
+    const orgao = request.params.orgao
 
-    await knex('users').where('id', id).update({ cpf: cpf })
+    await knex(`${orgao}users`).where('id', id).update({ cpf: cpf })
 
     return response.json({messager: "cpf atualizada"})
   }
   async show(request: Request, response: Response) {
     const { id } = request.params
     const { data } = request.query
+    const orgao = request.params.orgao
 
-    const {nome, email, cpf, matricula, numero} = await knex('users').where('id', id).first()
-    const forms = await knex('forms').where('user_id', id).orderBy('data', "desc")
+    const {nome, email, cpf, matricula, numero} = await knex(`${orgao}users`).where('id', id).first()
+    const forms = await knex(`${orgao}forms`).where('user_id', id).orderBy('data', "desc")
 
     if(!data){
       return response.json({
@@ -60,21 +66,22 @@ class UsersController{
       })
     }
 
-    const userData = await knex('forms').where('user_id', id).where('data', Number(data)).distinct()
+    const userData = await knex(`${orgao}forms`).where('user_id', id).where('data', Number(data)).distinct()
 
     return response.json(userData)
   }
   
   async index(request: Request, response: Response) {
     const { nome, email, cpf, matricula } = request.query
+    const orgao = request.params.orgao
 
-    const userName = await knex('users').where('nome', String(nome))
+    const userName = await knex(`${orgao}users`).where('nome', String(nome))
 
-    const userEmail = await knex('users').where('email', String(email)).first()
+    const userEmail = await knex(`${orgao}users`).where('email', String(email)).first()
 
-    const userCpf = await knex('users').where('cpf', Number(cpf)).first()
+    const userCpf = await knex(`${orgao}users`).where('cpf', Number(cpf)).first()
 
-    const userMatricula = await knex('users').where('matricula', Number(matricula)).first()
+    const userMatricula = await knex(`${orgao}users`).where('matricula', Number(matricula)).first()
 
     return response.json({
       userName,
@@ -93,6 +100,7 @@ class UsersController{
       matricula,
       numero
     } = request.body
+    const orgao = request.params.orgao
 
     const user = {
       nome,
@@ -105,7 +113,7 @@ class UsersController{
       root: false
     }
 
-    const insertId = await knex('users').insert(user)
+    const insertId = await knex(`${orgao}users`).insert(user)
 
     const user_id = insertId[0]
 
@@ -117,10 +125,11 @@ class UsersController{
 
   async delete(request: Request, response: Response) {
     const {id} = request.params
+    const orgao = request.params.orgao
 
-    await knex('forms').where('user_id', id).del()
+    await knex(`${orgao}forms`).where('user_id', id).del()
 
-    await knex('users').where('id', id).del()
+    await knex(`${orgao}users`).where('id', id).del()
 
     return response.json({messager: "usuario deletado"})
   }
