@@ -27,7 +27,7 @@ const visitController = new VisitController()
 
 routes.post("/:orgao/cadastrovisitante", visitController.create);
 
-routes.post(":orgao/createuser", usersController.create);
+routes.post("/:orgao/createuser", usersController.create);
 routes.delete("/:orgao/deleteuser/:id", usersController.delete);
 routes.get("/:orgao/users", usersController.index);
 routes.get("/:orgao/user/:id", usersController.show);
