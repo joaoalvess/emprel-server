@@ -129,6 +129,8 @@ class UsersController{
 
     await knex(`${orgao}forms`).where('user_id', id).del()
 
+    await knex(`${orgao}inativos`).where('user_id', id).del()
+
     await knex(`${orgao}users`).where('id', id).del()
 
     return response.json({messager: "usuario deletado"})

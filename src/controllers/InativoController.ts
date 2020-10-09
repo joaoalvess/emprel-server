@@ -20,6 +20,15 @@ class InativoController {
 
     return response.json({messager: "Usuario Inativado"})
   }
+
+  async remove(request: Request, response: Response) {
+    const { id } = request.params
+    const orgao = request.params.orgao
+
+    await knex(`${orgao}inativos`).where('user_id', id).del()
+
+    return response.json({messager: "Usuario Reativado"})
+  }
 }
 
 export default InativoController
