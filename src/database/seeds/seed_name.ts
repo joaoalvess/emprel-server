@@ -1,7 +1,7 @@
 import * as Knex from "knex";
 
 export async function seed(knex: Knex): Promise<void> {
-    await knex("inativos").insert([
+    await knex("emprelinativos").insert([
       { user_id: 41, nome: "Moises Batista Leal Junior", email: "inativo", matricula: 3808, numero: 999779066},
       { user_id: 26, nome: "Bruno Luis C da Cunha Cruz", email: "inativo", matricula: 12998, numero: 999217400},
       { user_id: 9, nome: "Ana Dulce Coelho Couto", email: "inativo", matricula: 0, numero: 988320111},
