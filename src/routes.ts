@@ -12,6 +12,7 @@ import TempController from './controllers/TempController'
 import PhotoController from './controllers/PhotoController'
 import PassRecover from './controllers/PassRecover'
 import VisitController from './controllers/VisitController'
+import InativoController from './controllers/InativoController'
 
 const routes = express.Router();
 const usersController = new UsersController()
@@ -24,6 +25,7 @@ const tempController = new TempController()
 const photoController = new PhotoController()
 const passRecover = new PassRecover()
 const visitController = new VisitController()
+const inativoController = new InativoController()
 
 routes.post("/:orgao/cadastrovisitante", visitController.create);
 
@@ -44,6 +46,9 @@ routes.put("/:orgao/perfil/:id", perfilController.update);
 
 routes.post("/:orgao/send", passRecover.show);
 
+routes.post("/:orgao/addinativo", inativoController.create);
+routes.delete("/:orgao/deleteinativo", inativoController.remove);
+
 routes.put("/:orgao/formtemp/:id", tempController.update);
 
 routes.put("/:orgao/photo/:id", multer(multerConfig).single('file'), photoController.update);
@@ -59,5 +64,6 @@ routes.get("/:orgao/form/:id", formsController.show);
 routes.get("/:orgao/formselect", formsController.indexSelect);
 routes.get("/:orgao/forminapto", formsController.indexInapto);
 routes.post("/:orgao/formnotsend", formsController.indexNotSend);
+routes.post("/:orgao/forminativos", formsController.indexInativos);
 
 export default routes;

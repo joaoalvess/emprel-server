@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import knex from '../database/connection'
 
 class InativoController {
-  async update(request: Request, response: Response) {
+  async create(request: Request, response: Response) {
     const { id } = request.params
     const orgao = request.params.orgao
 

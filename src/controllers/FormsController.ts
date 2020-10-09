@@ -3,7 +3,6 @@ import knex from '../database/connection'
 
 class FormsController{
   async indexInativos(request: Request, response: Response) {
-    const id = request.body.id
     const orgao = request.params.orgao
 
     const users = await knex(`${orgao}inativos`).orderBy('nome')
