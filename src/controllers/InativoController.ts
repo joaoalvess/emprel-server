@@ -7,7 +7,9 @@ class InativoController {
 
     const { user_id }:any = await knex(`${orgao}inativos`)
 
-    const users = await knex(`${orgao}users`).where('email', 'inativo').whereNotIn('id', user_id).orderBy('nome')
+    const inativo = [ user_id ]
+
+    const users = await knex(`${orgao}users`).where('email', 'inativo').whereNotIn('id', inativo).orderBy('nome')
 
     return response.json(users)
   }
