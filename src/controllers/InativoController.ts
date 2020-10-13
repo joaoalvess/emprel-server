@@ -2,6 +2,14 @@ import { Request, Response } from 'express'
 import knex from '../database/connection'
 
 class InativoController {
+  async index(request: Request, response: Response) {
+    const orgao = request.params.orgao
+
+    const users = await knex(`${orgao}users`).where('email', 'inativo').orderBy('nome')
+
+    return response.json(users)
+  }
+
   async create(request: Request, response: Response) {
     const { id } = request.params
     const orgao = request.params.orgao

@@ -48,6 +48,7 @@ routes.post("/:orgao/send", passRecover.show);
 
 routes.post("/:orgao/addinativo/:id", inativoController.create);
 routes.delete("/:orgao/deleteinativo/:id", inativoController.remove);
+routes.get("/:orgao/inativolist", inativoController.index);
 
 routes.put("/:orgao/formtemp/:id", tempController.update);
 
