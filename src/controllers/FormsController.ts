@@ -5,7 +5,7 @@ class FormsController{
   async indexInativos(request: Request, response: Response) {
     const orgao = request.params.orgao
 
-    const users = await knex(`${orgao}inativos`).orderBy('nome')
+    const users = await knex(`${orgao}users`).where('root', true).orderBy('nome')
 
     return response.json(users)
   }
@@ -16,9 +16,7 @@ class FormsController{
 
     const test = id
 
-    const { user_id }:any = await knex(`${orgao}inativos`)
-
-    const users = await knex(`${orgao}users`).whereNotIn('id', test).whereNot('email', 'inativo').orderBy('nome')
+    const users = await knex(`${orgao}users`).whereNotIn('id', test).whereNot('root', true).whereNot('email', 'inativo').orderBy('nome')
 
     return response.json(users)
   }

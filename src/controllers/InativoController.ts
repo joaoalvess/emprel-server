@@ -5,11 +5,7 @@ class InativoController {
   async index(request: Request, response: Response) {
     const orgao = request.params.orgao
 
-    const { user_id }:any = await knex(`${orgao}inativos`)
-
-    const inativo = [ user_id ]
-
-    const users = await knex(`${orgao}users`).where('email', 'inativo').whereNotIn('id', inativo).orderBy('nome')
+    const users = await knex(`${orgao}users`).where('email', 'inativo').whereNot('root', true).orderBy('nome')
 
     return response.json(users)
   }
@@ -18,17 +14,7 @@ class InativoController {
     const { id } = request.params
     const orgao = request.params.orgao
 
-    const { nome, email, matricula, numero } = await knex(`${orgao}users`).where('id', id).first()
-
-    const user = {
-      id,
-      nome,
-      email,
-      matricula,
-      numero
-    }
-
-    await knex(`${orgao}inativos`).insert(user)
+    await knex(`${orgao}users`).where('id', id).update({ root: true })
 
     return response.json({messager: "Usuario Inativado"})
   }
@@ -37,7 +23,7 @@ class InativoController {
     const { id } = request.params
     const orgao = request.params.orgao
 
-    await knex(`${orgao}inativos`).where('user_id', id).del()
+    await knex(`${orgao}users`).where('id', id).update({ root: false })
 
     return response.json({messager: "Usuario Reativado"})
   }
