@@ -64,6 +64,6 @@ routes.get("/:orgao/form/:id", formsController.show);
 routes.get("/:orgao/formselect", formsController.indexSelect);
 routes.get("/:orgao/forminapto", formsController.indexInapto);
 routes.post("/:orgao/formnotsend", formsController.indexNotSend);
-routes.post("/:orgao/forminativos", formsController.indexInativos);
+routes.get("/:orgao/forminativos", formsController.indexInativos);
 
 export default routes;
