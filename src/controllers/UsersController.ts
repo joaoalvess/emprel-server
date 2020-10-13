@@ -52,7 +52,7 @@ class UsersController{
     const { data } = request.query
     const orgao = request.params.orgao
 
-    const {nome, email, cpf, matricula, numero} = await knex(`${orgao}users`).where('id', id).first()
+    const {nome, email, cpf, matricula, numero, root} = await knex(`${orgao}users`).where('id', id).first()
     const forms = await knex(`${orgao}forms`).where('user_id', id).orderBy('data', "desc")
 
     if(!data){
@@ -62,6 +62,7 @@ class UsersController{
         cpf,
         matricula,
         numero,
+        root,
         forms
       })
     }
