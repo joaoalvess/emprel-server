@@ -56,13 +56,14 @@ var UsersController = /** @class */ (function () {
     }
     UsersController.prototype.updateNome = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, nome;
+            var id, nome, orgao;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
                         nome = request.body.nome;
-                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ nome: nome })];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).update({ nome: nome })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, response.json({ messager: "nome atualizada" })];
@@ -72,13 +73,14 @@ var UsersController = /** @class */ (function () {
     };
     UsersController.prototype.updateMatricula = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, matricula;
+            var id, matricula, orgao;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
                         matricula = request.body.matricula;
-                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ matricula: matricula })];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).update({ matricula: matricula })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, response.json({ messager: "matricula atualizada" })];
@@ -88,13 +90,14 @@ var UsersController = /** @class */ (function () {
     };
     UsersController.prototype.updateEmail = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, email;
+            var id, email, orgao;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
                         email = request.body.email;
-                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ email: email })];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).update({ email: email })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, response.json({ messager: "email atualizada" })];
@@ -104,13 +107,14 @@ var UsersController = /** @class */ (function () {
     };
     UsersController.prototype.updateNumber = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, numero;
+            var id, numero, orgao;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
                         numero = request.body.numero;
-                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ numero: numero })];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).update({ numero: numero })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, response.json({ messager: "numero atualizada" })];
@@ -120,13 +124,14 @@ var UsersController = /** @class */ (function () {
     };
     UsersController.prototype.updateCpf = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, cpf;
+            var id, cpf, orgao;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
                         cpf = request.body.cpf;
-                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ cpf: cpf })];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).update({ cpf: cpf })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, response.json({ messager: "cpf atualizada" })];
@@ -136,21 +141,33 @@ var UsersController = /** @class */ (function () {
     };
     UsersController.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, data, forms, userData;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var id, data, orgao, _a, nome, email, cpf, matricula, numero, root, forms, userData;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         id = request.params.id;
                         data = request.query.data;
-                        return [4 /*yield*/, connection_1.default('forms').where('user_id', id)];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).first()];
                     case 1:
-                        forms = _a.sent();
-                        if (!data) {
-                            return [2 /*return*/, response.json(forms)];
-                        }
-                        return [4 /*yield*/, connection_1.default('forms').where('user_id', id).where('data', Number(data)).distinct()];
+                        _a = _b.sent(), nome = _a.nome, email = _a.email, cpf = _a.cpf, matricula = _a.matricula, numero = _a.numero, root = _a.root;
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").where('user_id', id).orderBy('data', "desc")];
                     case 2:
-                        userData = _a.sent();
+                        forms = _b.sent();
+                        if (!data) {
+                            return [2 /*return*/, response.json({
+                                    nome: nome,
+                                    email: email,
+                                    cpf: cpf,
+                                    matricula: matricula,
+                                    numero: numero,
+                                    root: root,
+                                    forms: forms
+                                })];
+                        }
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").where('user_id', id).where('data', Number(data)).distinct()];
+                    case 3:
+                        userData = _b.sent();
                         return [2 /*return*/, response.json(userData)];
                 }
             });
@@ -158,21 +175,22 @@ var UsersController = /** @class */ (function () {
     };
     UsersController.prototype.index = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, nome, email, cpf, matricula, userName, userEmail, userCpf, userMatricula;
+            var _a, nome, email, cpf, matricula, orgao, userName, userEmail, userCpf, userMatricula;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = request.query, nome = _a.nome, email = _a.email, cpf = _a.cpf, matricula = _a.matricula;
-                        return [4 /*yield*/, connection_1.default('users').where('nome', String(nome))];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('nome', String(nome))];
                     case 1:
                         userName = _b.sent();
-                        return [4 /*yield*/, connection_1.default('users').where('email', String(email)).first()];
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('email', String(email)).first()];
                     case 2:
                         userEmail = _b.sent();
-                        return [4 /*yield*/, connection_1.default('users').where('cpf', Number(cpf)).first()];
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('cpf', Number(cpf)).first()];
                     case 3:
                         userCpf = _b.sent();
-                        return [4 /*yield*/, connection_1.default('users').where('matricula', Number(matricula)).first()];
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('matricula', Number(matricula)).first()];
                     case 4:
                         userMatricula = _b.sent();
                         return [2 /*return*/, response.json({
@@ -187,11 +205,12 @@ var UsersController = /** @class */ (function () {
     };
     UsersController.prototype.create = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, nome, email, senha, cpf, matricula, numero, user, insertId, user_id;
+            var _a, nome, email, senha, cpf, matricula, numero, orgao, user, insertId, user_id;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = request.body, nome = _a.nome, email = _a.email, senha = _a.senha, cpf = _a.cpf, matricula = _a.matricula, numero = _a.numero;
+                        orgao = request.params.orgao;
                         user = {
                             nome: nome,
                             email: email,
@@ -202,7 +221,7 @@ var UsersController = /** @class */ (function () {
                             adm: false,
                             root: false
                         };
-                        return [4 /*yield*/, connection_1.default('users').insert(user)];
+                        return [4 /*yield*/, connection_1.default(orgao + "users").insert(user)];
                     case 1:
                         insertId = _b.sent();
                         user_id = insertId[0];
@@ -213,13 +232,20 @@ var UsersController = /** @class */ (function () {
     };
     UsersController.prototype.delete = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id;
+            var id, orgao;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
-                        return [4 /*yield*/, connection_1.default('users').where('id', id).delete()];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").where('user_id', id).del()];
                     case 1:
+                        _a.sent();
+                        return [4 /*yield*/, connection_1.default(orgao + "inativos").where('user_id', id).del()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).del()];
+                    case 3:
                         _a.sent();
                         return [2 /*return*/, response.json({ messager: "usuario deletado" })];
                 }

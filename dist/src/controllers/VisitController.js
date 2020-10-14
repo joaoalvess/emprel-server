@@ -56,10 +56,11 @@ var Visit = /** @class */ (function () {
     }
     Visit.prototype.create = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, data, infectado, contato_infectado, tosse, febre, falta_ar, calafrio, garganta, cabeça, corpo, olfato, paladar, temperatura, count, apto, nome, numero, email, cpf, form, insertId, form_id;
+            var orgao, _a, data, infectado, contato_infectado, tosse, febre, falta_ar, calafrio, garganta, cabeça, corpo, olfato, paladar, temperatura, count, apto, nome, numero, email, cpf, form, insertId, form_id;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        orgao = request.params.orgao;
                         _a = request.body, data = _a.data, infectado = _a.infectado, contato_infectado = _a.contato_infectado, tosse = _a.tosse, febre = _a.febre, falta_ar = _a.falta_ar, calafrio = _a.calafrio, garganta = _a.garganta, cabeça = _a.cabeça, corpo = _a.corpo, olfato = _a.olfato, paladar = _a.paladar, temperatura = _a.temperatura, count = _a.count, apto = _a.apto, nome = _a.nome, numero = _a.numero, email = _a.email, cpf = _a.cpf;
                         form = {
                             user_id: 135,
@@ -80,11 +81,11 @@ var Visit = /** @class */ (function () {
                             nome: nome,
                             numero: numero,
                             email: email,
-                            matricula: 'Visitante',
+                            matricula: 135,
                             count: count,
                             cpf: cpf
                         };
-                        return [4 /*yield*/, connection_1.default('forms').insert(form)];
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").insert(form)];
                     case 1:
                         insertId = _b.sent();
                         form_id = insertId[0];

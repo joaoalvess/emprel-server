@@ -43,14 +43,31 @@ var connection_1 = __importDefault(require("../database/connection"));
 var PerfilController = /** @class */ (function () {
     function PerfilController() {
     }
+    PerfilController.prototype.filterShow = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var nome, orgao, user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        nome = request.params.nome;
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('nome', nome).first()];
+                    case 1:
+                        user = _a.sent();
+                        return [2 /*return*/, response.json(user)];
+                }
+            });
+        });
+    };
     PerfilController.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, user;
+            var id, orgao, user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
-                        return [4 /*yield*/, connection_1.default('users').where('id', id).first()];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).first()];
                     case 1:
                         user = _a.sent();
                         return [2 /*return*/, response.json(user)];
@@ -60,13 +77,14 @@ var PerfilController = /** @class */ (function () {
     };
     PerfilController.prototype.update = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, senha;
+            var id, senha, orgao;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
                         senha = request.body.senha;
-                        return [4 /*yield*/, connection_1.default('users').where('id', id).update({ senha: senha })];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).update({ senha: senha })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, response.json({ messager: "senha atualizada" })];

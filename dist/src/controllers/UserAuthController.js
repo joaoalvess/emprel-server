@@ -56,12 +56,13 @@ var UserAuthController = /** @class */ (function () {
     }
     UserAuthController.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, cpf, senha, auth;
+            var _a, cpf, senha, orgao, auth;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _a = request.query, cpf = _a.cpf, senha = _a.senha;
-                        return [4 /*yield*/, connection_1.default('users').where('cpf', String(cpf)).where('senha', String(senha)).first()];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('cpf', String(cpf)).where('senha', String(senha)).first()];
                     case 1:
                         auth = _b.sent();
                         if (!auth) {

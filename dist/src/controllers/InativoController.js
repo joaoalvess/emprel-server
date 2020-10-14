@@ -40,53 +40,56 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var connection_1 = __importDefault(require("../database/connection"));
-var nodemailer_1 = __importDefault(require("nodemailer"));
-var PassRecover = /** @class */ (function () {
-    function PassRecover() {
+var InativoController = /** @class */ (function () {
+    function InativoController() {
     }
-    PassRecover.prototype.show = function (request, response) {
+    InativoController.prototype.index = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, email, cpf, orgao, user, pass, transporter, selectUser, matricula, id, crypto, code;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var orgao, users;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        _a = request.body, email = _a.email, cpf = _a.cpf;
                         orgao = request.params.orgao;
-                        user = process.env.USER;
-                        pass = process.env.PASS;
-                        transporter = nodemailer_1.default.createTransport({
-                            host: 'smtp.gmail.com',
-                            port: 587,
-                            auth: { user: user, pass: pass }
-                        });
-                        return [4 /*yield*/, connection_1.default(orgao + "users").where('email', email).where('cpf', cpf).first()];
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('email', 'inativo').whereNot('root', true).orderBy('nome')];
                     case 1:
-                        selectUser = _b.sent();
-                        if (!selectUser) {
-                            return [2 /*return*/, response.status(404).json({ message: "Usuario não encontrado" })];
-                        }
-                        matricula = selectUser.matricula, id = selectUser.id;
-                        crypto = require("crypto");
-                        code = crypto.randomBytes(3).toString('hex');
-                        transporter.sendMail({
-                            from: user,
-                            to: email,
-                            subject: "Recuperação de senha",
-                            html: "<p style=\"font-size:18px;\">Seu codigo de verifica\u00E7\u00E3o \u00E9 <strong>" + code + "</strong></p>"
-                        }).then(function (info) {
-                            response.json({
-                                matricula: matricula,
-                                code: code,
-                                id: id
-                            });
-                        }).catch(function (error) {
-                            response.send(error);
-                        });
-                        return [2 /*return*/];
+                        users = _a.sent();
+                        return [2 /*return*/, response.json(users)];
                 }
             });
         });
     };
-    return PassRecover;
+    InativoController.prototype.create = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, orgao;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = request.params.id;
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).update({ root: true })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, response.json({ messager: "Usuario Inativado" })];
+                }
+            });
+        });
+    };
+    InativoController.prototype.remove = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, orgao;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = request.params.id;
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).update({ root: false })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, response.json({ messager: "Usuario Reativado" })];
+                }
+            });
+        });
+    };
+    return InativoController;
 }());
-exports.default = PassRecover;
+exports.default = InativoController;

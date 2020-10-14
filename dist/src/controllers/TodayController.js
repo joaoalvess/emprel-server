@@ -56,13 +56,14 @@ var TodayController = /** @class */ (function () {
     }
     TodayController.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, data, forms;
+            var id, data, orgao, forms;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
                         data = request.query.data;
-                        return [4 /*yield*/, connection_1.default('forms').where('user_id', id).where('data', String(data)).first()];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").where('user_id', id).where('data', String(data)).first()];
                     case 1:
                         forms = _a.sent();
                         if (!forms) {

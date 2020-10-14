@@ -35,31 +35,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var connection_1 = __importDefault(require("../database/connection"));
-var PhotoController = /** @class */ (function () {
-    function PhotoController() {
-    }
-    PhotoController.prototype.update = function (request, response) {
-        return __awaiter(this, void 0, void 0, function () {
-            var id, orgao, location;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        id = request.params.id;
-                        orgao = request.params.orgao;
-                        location = request.file.location;
-                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', id).update({ url: location })];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/, response.json({ messager: "sucess" })];
-                }
-            });
+exports.down = exports.up = void 0;
+function up(knex) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, knex.schema.createTable("inativos", function (table) {
+                    table.increments("id").primary();
+                    table.string("nome");
+                    table.string("email");
+                    table.integer("matricula");
+                    table.integer("numero");
+                    table.integer("user_id").notNullable().references("id").inTable("users");
+                })];
         });
-    };
-    return PhotoController;
-}());
-exports.default = PhotoController;
+    });
+}
+exports.up = up;
+function down(knex) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, knex.schema.dropTable("inativos")];
+        });
+    });
+}
+exports.down = down;

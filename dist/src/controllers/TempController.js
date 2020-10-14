@@ -45,20 +45,21 @@ var TempController = /** @class */ (function () {
     }
     TempController.prototype.update = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, temperatura, apto;
+            var id, _a, temperatura, apto, orgao;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         id = request.params.id;
                         _a = request.body, temperatura = _a.temperatura, apto = _a.apto;
+                        orgao = request.params.orgao;
                         if (!(apto == true)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, connection_1.default('forms').where('id', id).update({ temperatura: temperatura })];
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").where('id', id).update({ temperatura: temperatura })];
                     case 1:
                         _b.sent();
                         _b.label = 2;
                     case 2:
                         if (!(apto == false)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, connection_1.default('forms').where('id', id).update({ temperatura: temperatura, apto: apto })];
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").where('id', id).update({ temperatura: temperatura, apto: apto })];
                     case 3:
                         _b.sent();
                         _b.label = 4;

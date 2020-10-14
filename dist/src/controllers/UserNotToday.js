@@ -45,12 +45,13 @@ var UserNotToday = /** @class */ (function () {
     }
     UserNotToday.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, users;
+            var id, orgao, users;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.body.id;
-                        return [4 /*yield*/, connection_1.default('forms').whereNotIn('data', [id])];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").whereNotIn('data', [id])];
                     case 1:
                         users = _a.sent();
                         if (!users) {

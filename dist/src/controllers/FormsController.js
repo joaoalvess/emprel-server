@@ -54,15 +54,48 @@ var connection_1 = __importDefault(require("../database/connection"));
 var FormsController = /** @class */ (function () {
     function FormsController() {
     }
+    FormsController.prototype.indexInativos = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var orgao, users;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('root', true).orderBy('nome')];
+                    case 1:
+                        users = _a.sent();
+                        return [2 /*return*/, response.json(users)];
+                }
+            });
+        });
+    };
+    FormsController.prototype.indexNotSend = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, orgao, test, users;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = request.body.id;
+                        orgao = request.params.orgao;
+                        test = id;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").whereNotIn('id', test).whereNot('root', true).whereNot('email', 'inativo').orderBy('nome')];
+                    case 1:
+                        users = _a.sent();
+                        return [2 /*return*/, response.json(users)];
+                }
+            });
+        });
+    };
     FormsController.prototype.indexInapto = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, data, infectado, contato_infectado, tosse, febre, falta_ar, calafrio, garganta, cabeça, olfato, paladar, corpo, select, selectDate, _b, filterData, filterInfectado, filterContato, filterTosse, filterFebre, filterFalta_ar, filterCalafrio, filterGarganta, filterCabeça, filterCorpo, filterOlfato, filterPaladar, filterTemperatura, filterAll;
+            var _a, data, infectado, contato_infectado, tosse, febre, falta_ar, calafrio, garganta, cabeça, olfato, paladar, corpo, select, selectDate, orgao, _b, filterData, filterInfectado, filterContato, filterTosse, filterFebre, filterFalta_ar, filterCalafrio, filterGarganta, filterCabeça, filterCorpo, filterOlfato, filterPaladar, filterTemperatura, filterAll;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _a = request.query, data = _a.data, infectado = _a.infectado, contato_infectado = _a.contato_infectado, tosse = _a.tosse, febre = _a.febre, falta_ar = _a.falta_ar, calafrio = _a.calafrio, garganta = _a.garganta, cabeça = _a.cabeça, olfato = _a.olfato, paladar = _a.paladar, corpo = _a.corpo;
                         select = request.query.select;
                         selectDate = request.query.selectDate;
+                        orgao = request.params.orgao;
                         _b = select;
                         switch (_b) {
                             case "data": return [3 /*break*/, 1];
@@ -80,72 +113,72 @@ var FormsController = /** @class */ (function () {
                             case "temperatura": return [3 /*break*/, 25];
                         }
                         return [3 /*break*/, 27];
-                    case 1: return [4 /*yield*/, connection_1.default('forms').where('data', String(selectDate)).where('apto', false)];
+                    case 1: return [4 /*yield*/, connection_1.default(orgao + "forms").where('data', String(selectDate)).where('apto', false)];
                     case 2:
                         filterData = _c.sent();
                         response.json(filterData);
                         return [3 /*break*/, 29];
-                    case 3: return [4 /*yield*/, connection_1.default('forms').where('infectado', Boolean(infectado)).where('data', String(selectDate)).where('apto', false)];
+                    case 3: return [4 /*yield*/, connection_1.default(orgao + "forms").where('infectado', Boolean(infectado)).where('data', String(selectDate)).where('apto', false)];
                     case 4:
                         filterInfectado = _c.sent();
                         response.json(filterInfectado);
                         return [3 /*break*/, 29];
-                    case 5: return [4 /*yield*/, connection_1.default('forms').where('contato_infectado', Boolean(contato_infectado)).where('data', String(selectDate)).where('apto', false)];
+                    case 5: return [4 /*yield*/, connection_1.default(orgao + "forms").where('contato_infectado', Boolean(contato_infectado)).where('data', String(selectDate)).where('apto', false)];
                     case 6:
                         filterContato = _c.sent();
                         response.json(filterContato);
                         return [3 /*break*/, 29];
-                    case 7: return [4 /*yield*/, connection_1.default('forms').where('tosse', Boolean(tosse)).where('data', String(selectDate)).where('apto', false)];
+                    case 7: return [4 /*yield*/, connection_1.default(orgao + "forms").where('tosse', Boolean(tosse)).where('data', String(selectDate)).where('apto', false)];
                     case 8:
                         filterTosse = _c.sent();
                         response.json(filterTosse);
                         return [3 /*break*/, 29];
-                    case 9: return [4 /*yield*/, connection_1.default('forms').where('febre', Boolean(febre)).where('data', String(selectDate)).where('apto', false)];
+                    case 9: return [4 /*yield*/, connection_1.default(orgao + "forms").where('febre', Boolean(febre)).where('data', String(selectDate)).where('apto', false)];
                     case 10:
                         filterFebre = _c.sent();
                         response.json(filterFebre);
                         return [3 /*break*/, 29];
-                    case 11: return [4 /*yield*/, connection_1.default('forms').where('falta_ar', Boolean(falta_ar)).where('data', String(selectDate)).where('apto', false)];
+                    case 11: return [4 /*yield*/, connection_1.default(orgao + "forms").where('falta_ar', Boolean(falta_ar)).where('data', String(selectDate)).where('apto', false)];
                     case 12:
                         filterFalta_ar = _c.sent();
                         response.json(filterFalta_ar);
                         return [3 /*break*/, 29];
-                    case 13: return [4 /*yield*/, connection_1.default('forms').where('calafrio', Boolean(calafrio)).where('data', String(selectDate)).where('apto', false)];
+                    case 13: return [4 /*yield*/, connection_1.default(orgao + "forms").where('calafrio', Boolean(calafrio)).where('data', String(selectDate)).where('apto', false)];
                     case 14:
                         filterCalafrio = _c.sent();
                         response.json(filterCalafrio);
                         return [3 /*break*/, 29];
-                    case 15: return [4 /*yield*/, connection_1.default('forms').where('garganta', Boolean(garganta)).where('data', String(selectDate)).where('apto', false)];
+                    case 15: return [4 /*yield*/, connection_1.default(orgao + "forms").where('garganta', Boolean(garganta)).where('data', String(selectDate)).where('apto', false)];
                     case 16:
                         filterGarganta = _c.sent();
                         response.json(filterGarganta);
                         return [3 /*break*/, 29];
-                    case 17: return [4 /*yield*/, connection_1.default('forms').where('cabeça', Boolean(cabeça)).where('data', String(selectDate)).where('apto', false)];
+                    case 17: return [4 /*yield*/, connection_1.default(orgao + "forms").where('cabeça', Boolean(cabeça)).where('data', String(selectDate)).where('apto', false)];
                     case 18:
                         filterCabeça = _c.sent();
                         response.json(filterCabeça);
                         return [3 /*break*/, 29];
-                    case 19: return [4 /*yield*/, connection_1.default('forms').where('corpo', Boolean(corpo)).where('data', String(selectDate)).where('apto', false)];
+                    case 19: return [4 /*yield*/, connection_1.default(orgao + "forms").where('corpo', Boolean(corpo)).where('data', String(selectDate)).where('apto', false)];
                     case 20:
                         filterCorpo = _c.sent();
                         response.json(filterCorpo);
                         return [3 /*break*/, 29];
-                    case 21: return [4 /*yield*/, connection_1.default('forms').where('olfato', Boolean(olfato)).where('data', String(selectDate)).where('apto', false)];
+                    case 21: return [4 /*yield*/, connection_1.default(orgao + "forms").where('olfato', Boolean(olfato)).where('data', String(selectDate)).where('apto', false)];
                     case 22:
                         filterOlfato = _c.sent();
                         response.json(filterOlfato);
                         return [3 /*break*/, 29];
-                    case 23: return [4 /*yield*/, connection_1.default('forms').where('paladar', Boolean(paladar)).where('data', String(selectDate)).where('apto', false)];
+                    case 23: return [4 /*yield*/, connection_1.default(orgao + "forms").where('paladar', Boolean(paladar)).where('data', String(selectDate)).where('apto', false)];
                     case 24:
                         filterPaladar = _c.sent();
                         response.json(filterPaladar);
                         return [3 /*break*/, 29];
-                    case 25: return [4 /*yield*/, connection_1.default('forms').where('temperatura', '>=', 37.2).where('data', String(selectDate)).where('apto', false)];
+                    case 25: return [4 /*yield*/, connection_1.default(orgao + "forms").where('temperatura', '>=', 37.2).where('data', String(selectDate)).where('apto', false)];
                     case 26:
                         filterTemperatura = _c.sent();
                         response.json(filterTemperatura);
                         return [3 /*break*/, 29];
-                    case 27: return [4 /*yield*/, connection_1.default('forms').where('apto', false)];
+                    case 27: return [4 /*yield*/, connection_1.default(orgao + "forms").where('apto', false)];
                     case 28:
                         filterAll = _c.sent();
                         response.json(filterAll);
@@ -157,13 +190,14 @@ var FormsController = /** @class */ (function () {
     };
     FormsController.prototype.indexSelect = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, data, infectado, contato_infectado, tosse, febre, falta_ar, calafrio, garganta, cabeça, olfato, paladar, corpo, select, selectDate, _b, filterData, filterInfectado, filterContato, filterTosse, filterFebre, filterFalta_ar, filterCalafrio, filterGarganta, filterCabeça, filterCorpo, filterOlfato, filterPaladar, filterTemperatura, filterAll;
+            var _a, data, infectado, contato_infectado, tosse, febre, falta_ar, calafrio, garganta, cabeça, olfato, paladar, corpo, select, selectDate, orgao, _b, filterData, filterInfectado, filterContato, filterTosse, filterFebre, filterFalta_ar, filterCalafrio, filterGarganta, filterCabeça, filterCorpo, filterOlfato, filterTemperatura, filterPaladar, filterVisitante, filterSintomas, filterDataDefault;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _a = request.query, data = _a.data, infectado = _a.infectado, contato_infectado = _a.contato_infectado, tosse = _a.tosse, febre = _a.febre, falta_ar = _a.falta_ar, calafrio = _a.calafrio, garganta = _a.garganta, cabeça = _a.cabeça, olfato = _a.olfato, paladar = _a.paladar, corpo = _a.corpo;
                         select = request.query.select;
                         selectDate = request.query.selectDate;
+                        orgao = request.params.orgao;
                         _b = select;
                         switch (_b) {
                             case "data": return [3 /*break*/, 1];
@@ -177,100 +211,124 @@ var FormsController = /** @class */ (function () {
                             case "cabeça": return [3 /*break*/, 17];
                             case "corpo": return [3 /*break*/, 19];
                             case "olfato": return [3 /*break*/, 21];
-                            case "paladar": return [3 /*break*/, 23];
-                            case "temperatura": return [3 /*break*/, 25];
+                            case "temperatura": return [3 /*break*/, 23];
+                            case "paladar": return [3 /*break*/, 25];
+                            case "visitante": return [3 /*break*/, 27];
+                            case "sintomas": return [3 /*break*/, 29];
                         }
-                        return [3 /*break*/, 27];
-                    case 1: return [4 /*yield*/, connection_1.default('forms').where('data', String(selectDate))];
+                        return [3 /*break*/, 31];
+                    case 1: return [4 /*yield*/, connection_1.default(orgao + "forms").where('data', String(selectDate)).whereNot('user_id', 135).orderBy('nome')];
                     case 2:
                         filterData = _c.sent();
                         response.json(filterData);
-                        return [3 /*break*/, 29];
-                    case 3: return [4 /*yield*/, connection_1.default('forms').where('infectado', Boolean(infectado)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 3: return [4 /*yield*/, connection_1.default(orgao + "forms").where('infectado', Boolean(infectado)).where('data', String(selectDate))];
                     case 4:
                         filterInfectado = _c.sent();
                         response.json(filterInfectado);
-                        return [3 /*break*/, 29];
-                    case 5: return [4 /*yield*/, connection_1.default('forms').where('contato_infectado', Boolean(contato_infectado)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 5: return [4 /*yield*/, connection_1.default(orgao + "forms").where('contato_infectado', Boolean(contato_infectado)).where('data', String(selectDate))];
                     case 6:
                         filterContato = _c.sent();
                         response.json(filterContato);
-                        return [3 /*break*/, 29];
-                    case 7: return [4 /*yield*/, connection_1.default('forms').where('tosse', Boolean(tosse)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 7: return [4 /*yield*/, connection_1.default(orgao + "forms").where('tosse', Boolean(tosse)).where('data', String(selectDate))];
                     case 8:
                         filterTosse = _c.sent();
                         response.json(filterTosse);
-                        return [3 /*break*/, 29];
-                    case 9: return [4 /*yield*/, connection_1.default('forms').where('febre', Boolean(febre)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 9: return [4 /*yield*/, connection_1.default(orgao + "forms").where('febre', Boolean(febre)).where('data', String(selectDate))];
                     case 10:
                         filterFebre = _c.sent();
                         response.json(filterFebre);
-                        return [3 /*break*/, 29];
-                    case 11: return [4 /*yield*/, connection_1.default('forms').where('falta_ar', Boolean(falta_ar)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 11: return [4 /*yield*/, connection_1.default(orgao + "forms").where('falta_ar', Boolean(falta_ar)).where('data', String(selectDate))];
                     case 12:
                         filterFalta_ar = _c.sent();
                         response.json(filterFalta_ar);
-                        return [3 /*break*/, 29];
-                    case 13: return [4 /*yield*/, connection_1.default('forms').where('calafrio', Boolean(calafrio)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 13: return [4 /*yield*/, connection_1.default(orgao + "forms").where('calafrio', Boolean(calafrio)).where('data', String(selectDate))];
                     case 14:
                         filterCalafrio = _c.sent();
                         response.json(filterCalafrio);
-                        return [3 /*break*/, 29];
-                    case 15: return [4 /*yield*/, connection_1.default('forms').where('garganta', Boolean(garganta)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 15: return [4 /*yield*/, connection_1.default(orgao + "forms").where('garganta', Boolean(garganta)).where('data', String(selectDate))];
                     case 16:
                         filterGarganta = _c.sent();
                         response.json(filterGarganta);
-                        return [3 /*break*/, 29];
-                    case 17: return [4 /*yield*/, connection_1.default('forms').where('cabeça', Boolean(cabeça)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 17: return [4 /*yield*/, connection_1.default(orgao + "forms").where('cabeça', Boolean(cabeça)).where('data', String(selectDate))];
                     case 18:
                         filterCabeça = _c.sent();
                         response.json(filterCabeça);
-                        return [3 /*break*/, 29];
-                    case 19: return [4 /*yield*/, connection_1.default('forms').where('corpo', Boolean(corpo)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 19: return [4 /*yield*/, connection_1.default(orgao + "forms").where('corpo', Boolean(corpo)).where('data', String(selectDate))];
                     case 20:
                         filterCorpo = _c.sent();
                         response.json(filterCorpo);
-                        return [3 /*break*/, 29];
-                    case 21: return [4 /*yield*/, connection_1.default('forms').where('olfato', Boolean(olfato)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 21: return [4 /*yield*/, connection_1.default(orgao + "forms").where('olfato', Boolean(olfato)).where('data', String(selectDate))];
                     case 22:
                         filterOlfato = _c.sent();
                         response.json(filterOlfato);
-                        return [3 /*break*/, 29];
-                    case 23: return [4 /*yield*/, connection_1.default('forms').where('paladar', Boolean(paladar)).where('data', String(selectDate))];
+                        return [3 /*break*/, 33];
+                    case 23: return [4 /*yield*/, connection_1.default(orgao + "forms").where('temperatura', Number(30.2)).where('data', String(selectDate))];
                     case 24:
-                        filterPaladar = _c.sent();
-                        response.json(filterPaladar);
-                        return [3 /*break*/, 29];
-                    case 25: return [4 /*yield*/, connection_1.default('forms').where('temperatura', '>=', 37.2).where('data', String(selectDate))];
-                    case 26:
                         filterTemperatura = _c.sent();
                         response.json(filterTemperatura);
-                        return [3 /*break*/, 29];
-                    case 27: return [4 /*yield*/, connection_1.default('forms')];
+                        return [3 /*break*/, 33];
+                    case 25: return [4 /*yield*/, connection_1.default(orgao + "forms").where('paladar', Boolean(paladar)).where('data', String(selectDate))];
+                    case 26:
+                        filterPaladar = _c.sent();
+                        response.json(filterPaladar);
+                        return [3 /*break*/, 33];
+                    case 27: return [4 /*yield*/, connection_1.default(orgao + "forms").where('user_id', 135).where('data', String(selectDate))];
                     case 28:
-                        filterAll = _c.sent();
-                        response.json(filterAll);
-                        return [3 /*break*/, 29];
-                    case 29: return [2 /*return*/];
+                        filterVisitante = _c.sent();
+                        response.json(filterVisitante);
+                        return [3 /*break*/, 33];
+                    case 29: return [4 /*yield*/, connection_1.default(orgao + "forms")
+                            .where('paladar', true)
+                            .orWhere('olfato', true)
+                            .orWhere('corpo', true)
+                            .orWhere('cabeça', true)
+                            .orWhere('garganta', true)
+                            .orWhere('calafrio', true)
+                            .orWhere('falta_ar', true)
+                            .orWhere('febre', true)
+                            .orWhere('tosse', true)
+                            .orWhere('contato_infectado', true)
+                            .where('data', String(selectDate))];
+                    case 30:
+                        filterSintomas = _c.sent();
+                        response.json(filterSintomas);
+                        return [3 /*break*/, 33];
+                    case 31: return [4 /*yield*/, connection_1.default(orgao + "forms").where('data', String(selectDate))];
+                    case 32:
+                        filterDataDefault = _c.sent();
+                        response.json(filterDataDefault);
+                        return [3 /*break*/, 33];
+                    case 33: return [2 /*return*/];
                 }
             });
         });
     };
     FormsController.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, form, user_id, user;
+            var id, orgao, form, user_id, user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
-                        return [4 /*yield*/, connection_1.default('forms').where('id', id).first()];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").where('id', id).first()];
                     case 1:
                         form = _a.sent();
                         if (!form) {
                             return [2 /*return*/, response.status(400).json({ message: "Formulario não encontrado" })];
                         }
                         user_id = form.user_id;
-                        return [4 /*yield*/, connection_1.default('users').where('id', user_id).first()];
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', user_id).first()];
                     case 2:
                         user = _a.sent();
                         return [2 /*return*/, response.json(__assign(__assign({}, form), user))];
@@ -280,12 +338,13 @@ var FormsController = /** @class */ (function () {
     };
     FormsController.prototype.create = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var select_id, user, id, nome, numero, email, matricula, cpf, user_id, _a, data, infectado, contato_infectado, tosse, febre, falta_ar, calafrio, garganta, cabeça, corpo, olfato, paladar, temperatura, count, apto, form, insertId, form_id;
+            var select_id, orgao, user, id, nome, numero, email, matricula, cpf, user_id, _a, data, infectado, contato_infectado, tosse, febre, falta_ar, calafrio, garganta, cabeça, corpo, olfato, paladar, temperatura, count, apto, form, insertId, form_id;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         select_id = request.params.id;
-                        return [4 /*yield*/, connection_1.default('users').where('id', select_id).first()];
+                        orgao = request.params.orgao;
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', select_id).first()];
                     case 1:
                         user = _b.sent();
                         if (!user) {
@@ -317,7 +376,7 @@ var FormsController = /** @class */ (function () {
                             count: count,
                             cpf: cpf
                         };
-                        return [4 /*yield*/, connection_1.default('forms').insert(form)];
+                        return [4 /*yield*/, connection_1.default(orgao + "forms").insert(form)];
                     case 2:
                         insertId = _b.sent();
                         form_id = insertId[0];

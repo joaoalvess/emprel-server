@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -44,6 +55,28 @@ var nodemailer_1 = __importDefault(require("nodemailer"));
 var PassRecover = /** @class */ (function () {
     function PassRecover() {
     }
+    PassRecover.prototype.create = function (request, response) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user_id, subordinados, orgao, user, insertId, id;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        user_id = request.body.user_id.user_id;
+                        subordinados = request.body.subordinados.subordinados;
+                        orgao = request.params.orgao;
+                        user = {
+                            user_id: user_id,
+                            subordinados: subordinados
+                        };
+                        return [4 /*yield*/, connection_1.default(orgao + "subordinados").insert(user)];
+                    case 1:
+                        insertId = _a.sent();
+                        id = insertId[0];
+                        return [2 /*return*/, response.json(__assign({ id: id }, user))];
+                }
+            });
+        });
+    };
     PassRecover.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, email, cpf, orgao, user, pass, transporter, selectUser, matricula, id, crypto, code;
