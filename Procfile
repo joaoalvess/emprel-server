@@ -1,1 +1,1 @@
-web: npm run dist-knex-migrations && npm run start
+web: npm run knex-migrations && npm run start
