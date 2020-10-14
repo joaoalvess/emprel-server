@@ -13,6 +13,7 @@ import PhotoController from './controllers/PhotoController'
 import PassRecover from './controllers/PassRecover'
 import VisitController from './controllers/VisitController'
 import InativoController from './controllers/InativoController'
+import SubordinadoController from './controllers/SubordinadoController'
 
 const routes = express.Router();
 const usersController = new UsersController()
@@ -26,8 +27,11 @@ const photoController = new PhotoController()
 const passRecover = new PassRecover()
 const visitController = new VisitController()
 const inativoController = new InativoController()
+const subordinadoController = new SubordinadoController()
 
 routes.post("/:orgao/cadastrovisitante", visitController.create);
+
+routes.post("/:orgao/addsubordinados", subordinadoController.create);
 
 routes.post("/:orgao/createuser", usersController.create);
 routes.delete("/:orgao/deleteuser/:id", usersController.delete);
