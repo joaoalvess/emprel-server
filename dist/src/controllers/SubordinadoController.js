@@ -61,7 +61,7 @@ var PassRecover = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        user_id = request.body.user_id.user_id;
+                        user_id = request.params.user_id;
                         subordinados = request.body.subordinados.subordinados;
                         orgao = request.params.orgao;
                         user = {
