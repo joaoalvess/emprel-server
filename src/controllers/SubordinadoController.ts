@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer'
 class PassRecover {
   async create(request: Request, response: Response) {
     const { user_id } = request.params
-    const { subordinados } = request.body.subordinados
+    const subordinados = request.body.subordinados
     const orgao = request.params.orgao
 
     const teste = subordinados
