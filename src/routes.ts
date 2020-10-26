@@ -32,6 +32,7 @@ const subordinadoController = new SubordinadoController()
 routes.post("/:orgao/cadastrovisitante", visitController.create);
 
 routes.post("/:orgao/addsubordinados/:user_id", subordinadoController.create);
+routes.get("/:orgao/emailsub/:user_id", subordinadoController.show);
 
 routes.post("/:orgao/createuser", usersController.create);
 routes.delete("/:orgao/deleteuser/:id", usersController.delete);

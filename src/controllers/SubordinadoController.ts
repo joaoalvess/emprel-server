@@ -25,7 +25,7 @@ class PassRecover {
   }
 
   async show(request: Request, response: Response) {
-    const { email, cpf } = request.body
+    const { user_id } = request.params
     const orgao = request.params.orgao
 
     const user = process.env.USER
@@ -37,13 +37,20 @@ class PassRecover {
       auth: {user,pass}
     })
 
-    const selectUser = await knex(`${orgao}users`).where('email', email).where('cpf', cpf).first()
+    const chefe = await knex(`${orgao}users`).where('id', user_id).first()
+
+    const { email } = chefe
+
+    const selectUser = await knex(`${orgao}subordinados`).where('user_id', user_id).first()
+
     
     if(!selectUser){
-      return response.status(404).json({ message: "Usuario não encontrado" })
+      return response.status(404).json({ message: "Usuario sem subordinados" })
     }
+    
+    const { subordinados } = selectUser
 
-    const { matricula, id } = selectUser
+    const sub = knex(`${orgao}users`).whereIn('id', subordinados)
     
     var crypto = require("crypto");
     var code = crypto.randomBytes(3).toString('hex');
@@ -55,9 +62,7 @@ class PassRecover {
       html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
     }).then(info => {
       response.json({
-        matricula,
-        code,
-        id
+        sub
       })
     }).catch(error => {
       response.send(error)
