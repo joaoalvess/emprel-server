@@ -7,9 +7,11 @@ class PassRecover {
     const { subordinados } = request.body.subordinados
     const orgao = request.params.orgao
 
+    const teste = subordinados
+
     const user = {
       user_id,
-      subordinados
+      subordinados: [teste]
     }
 
     const insertId = await knex(`${orgao}subordinados`).insert(user)
