@@ -9,7 +9,7 @@
     "knex-migrations": "knex --knexfile knexfile.ts migrate:up 03_create_chefes.ts",
     "knex-seeds": "knex --knexfile knexfile.ts seed:run",
     "build": "tsc --outDir dist",
-    "dist-knex-migrations": "knex --knexfile dist/knexfile.js migrate:up 03_create_chefes.js",
+    "dist-knex-migrations": "knex --knexfile dist/knexfile.js migrate:down 03_create_chefes.js",
     "dist-knex-seeds": "knex --knexfile dist/knexfile.js seed:run",
     "start": "node dist/src/server.js"
   },

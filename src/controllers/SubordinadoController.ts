@@ -3,7 +3,7 @@ import knex from '../database/connection'
 import nodemailer from 'nodemailer'
 class PassRecover {
   async create(request: Request, response: Response) {
-    const { user_id } = request.body.user_id
+    const { user_id } = request.params
     const { subordinados } = request.body.subordinados
     const orgao = request.params.orgao
 
