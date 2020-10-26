@@ -43,7 +43,7 @@ function up(knex) {
             return [2 /*return*/, knex.schema.createTable("emprelsubordinados", function (table) {
                     table.increments("id").primary();
                     table.specificType('subordinados', 'INT[]');
-                    table.integer("user_id").notNullable().references("id").inTable("users");
+                    table.integer("user_id").notNullable().references("id").inTable("emprelusers");
                 })];
         });
     });
