@@ -40,7 +40,7 @@ exports.down = exports.up = void 0;
 function up(knex) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, knex.schema.createTable("inativos", function (table) {
+            return [2 /*return*/, knex.schema.createTable("emprelinativos", function (table) {
                     table.increments("id").primary();
                     table.string("nome");
                     table.string("email");
@@ -55,7 +55,7 @@ exports.up = up;
 function down(knex) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, knex.schema.dropTable("inativos")];
+            return [2 /*return*/, knex.schema.dropTable("emprelinativos")];
         });
     });
 }

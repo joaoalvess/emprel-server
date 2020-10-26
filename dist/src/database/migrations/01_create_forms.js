@@ -40,7 +40,7 @@ exports.down = exports.up = void 0;
 function up(knex) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, knex.schema.createTable("forms", function (table) {
+            return [2 /*return*/, knex.schema.createTable("emprelforms", function (table) {
                     table.increments("id").primary();
                     table.boolean("infectado").notNullable();
                     table.boolean("contato_infectado").notNullable();
@@ -71,7 +71,7 @@ exports.up = up;
 function down(knex) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            return [2 /*return*/, knex.schema.dropTable("forms")];
+            return [2 /*return*/, knex.schema.dropTable("emprelforms")];
         });
     });
 }

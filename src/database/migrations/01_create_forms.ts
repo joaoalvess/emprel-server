@@ -1,7 +1,7 @@
 import Knex from "knex"
 
 export async function up(knex: Knex) {
-  return knex.schema.createTable("forms", table => {
+  return knex.schema.createTable("emprelforms", table => {
     table.increments("id").primary();
     table.boolean("infectado").notNullable()
     table.boolean("contato_infectado").notNullable()
@@ -30,5 +30,5 @@ export async function up(knex: Knex) {
 }
 
 export async function down(knex: Knex) {
-  return knex.schema.dropTable("forms")
+  return knex.schema.dropTable("emprelforms")
 }
