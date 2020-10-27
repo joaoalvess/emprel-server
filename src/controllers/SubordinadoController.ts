@@ -43,6 +43,9 @@ class PassRecover {
 
     const selectUser = await knex(`${orgao}subordinados`).where('user_id', user_id).first()
     
+    console.log(selectUser)
+    console.log(selectUser.subordinados)
+
     if(!selectUser){
       return response.status(404).json({ message: "Usuario sem subordinados" })
     }
@@ -51,7 +54,6 @@ class PassRecover {
 
     const teste = subordinados
 
-    console.log(teste)
     
     const sub = await knex(`${orgao}users`).whereIn('id', [teste])
 
