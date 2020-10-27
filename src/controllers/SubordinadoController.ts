@@ -62,7 +62,7 @@ class PassRecover {
       html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
     }).then(info => {
       response.json({
-        sub
+        selectUser
       })
     }).catch(error => {
       response.send(error)
