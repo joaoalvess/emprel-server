@@ -51,7 +51,7 @@ class PassRecover {
 
     console.log(teste)
     
-    const sub = await knex(`${orgao}users`).whereIn('id', teste)
+    const sub = await knex(`${orgao}users`).whereIn('id', [teste])
 
     
     var crypto = require("crypto");
