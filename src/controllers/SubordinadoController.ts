@@ -59,6 +59,8 @@ class PassRecover {
 
     const alo = forms.user_id
 
+    console.log(alo)
+
     const sub = await knex(`${orgao}users`).whereIn('id', teste).whereNotIn('id', alo)
     
     console.log(sub)
