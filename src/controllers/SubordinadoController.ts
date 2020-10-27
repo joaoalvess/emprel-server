@@ -55,11 +55,17 @@ class PassRecover {
     
     const teste = selectUser.subordinados[0]
 
-    const forms = await knex(`${orgao}forms`).select('user_id').whereIn('user_id', teste).where('data', String(data)).first()
+    const forms = await knex(`${orgao}forms`).select('user_id').whereIn('user_id', teste).where('data', String(data))
 
-    const alo = forms.user_id
+    const alo = forms[0]
+
+    const alo2 = forms[1]
+
+    const alo3 = alo.user_id
 
     console.log(alo)
+    console.log(alo2)
+    console.log(alo3)
 
     const sub = await knex(`${orgao}users`).whereIn('id', teste).whereNotIn('id', alo)
     
