@@ -49,7 +49,7 @@ class PassRecover {
     
     const teste = selectUser.subordinados
     
-    const sub = knex(`${orgao}users`).whereIn('id', teste)
+    const sub = await knex(`${orgao}users`).whereIn('id', teste)
 
     console.log(sub)
     
