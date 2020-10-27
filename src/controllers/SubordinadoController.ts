@@ -41,16 +41,15 @@ class PassRecover {
 
     const { email } = chefe
 
-    const selectUser = await knex(`${orgao}subordinados`).where('user_id', user_id).first()
+    const { subordinados } = await knex(`${orgao}subordinados`).where('user_id', user_id).first()
 
-    
-    if(!selectUser){
+    if(!subordinados){
       return response.status(404).json({ message: "Usuario sem subordinados" })
     }
     
-    const { subordinados } = selectUser
+    const teste = subordinados
 
-    const sub = knex(`${orgao}users`).whereIn('id', subordinados)
+    const sub = knex(`${orgao}users`).whereIn('id', teste)
     
     var crypto = require("crypto");
     var code = crypto.randomBytes(3).toString('hex');
@@ -63,6 +62,7 @@ class PassRecover {
     }).then(info => {
       response.json({
         subordinados,
+        teste,
         sub
       })
     }).catch(error => {
