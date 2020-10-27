@@ -31,6 +31,14 @@ class PassRecover {
     const user = process.env.USER
     const pass = process.env.PASS
 
+    const day = new Date().getDate();
+    const month = new Date().getMonth() + 1;
+    const year = new Date().getFullYear();
+
+    const data = `${day}${month}${year}`
+
+    console.log(data)
+
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
@@ -49,9 +57,13 @@ class PassRecover {
     
     const teste = selectUser.subordinados[0]
 
-    console.log(teste)
+    const forms = await knex(`${orgao}forms`).select('user_id').whereIn('user_id', teste).where('data', String(data))
+
+    console.log(forms)
+
+    const sub = await knex(`${orgao}users`).whereIn('id', teste).whereNotIn('id', forms)
     
-    const sub = await knex(`${orgao}users`).whereIn('id', teste)
+    console.log(sub)
     
     var crypto = require("crypto");
     var code = crypto.randomBytes(3).toString('hex');
@@ -63,7 +75,7 @@ class PassRecover {
       html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
     }).then(info => {
       response.json({
-        teste,
+        forms,
         sub
       })
     }).catch(error => {
