@@ -47,7 +47,9 @@ class PassRecover {
       return response.status(404).json({ message: "Usuario sem subordinados" })
     }
     
-    const teste = await selectUser.subordinados
+    const { subordinados } = await selectUser
+
+    const teste = subordinados
 
     console.log(teste)
     
