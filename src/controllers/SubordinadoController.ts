@@ -48,10 +48,11 @@ class PassRecover {
     }
     
     const teste = selectUser.subordinados
-    
-    const sub = await knex(`${orgao}users`).whereIn('id', [teste])
 
-    console.log(sub)
+    console.log(teste)
+    
+    const sub = await knex(`${orgao}users`).whereIn('id', teste)
+
     
     var crypto = require("crypto");
     var code = crypto.randomBytes(3).toString('hex');
