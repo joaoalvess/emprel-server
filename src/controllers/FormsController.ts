@@ -15,9 +15,6 @@ class FormsController{
     const orgao = request.params.orgao
 
     const test = id
-    
-    console.log(id)
-    console.log(test)
 
     const users = await knex(`${orgao}users`).whereNotIn('id', test).whereNot('root', true).whereNot('email', 'inativo').orderBy('nome')
 

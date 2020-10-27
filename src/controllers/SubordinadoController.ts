@@ -37,8 +37,6 @@ class PassRecover {
 
     const data = `${day}${month}${year}`
 
-    console.log(data)
-
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
@@ -57,11 +55,11 @@ class PassRecover {
     
     const teste = selectUser.subordinados[0]
 
-    const forms = await knex(`${orgao}forms`).select('user_id').whereIn('user_id', teste).where('data', String(data))
+    const forms = await knex(`${orgao}forms`).select('user_id').whereIn('user_id', teste).where('data', String(data)).first()
 
-    console.log(forms)
+    const alo = forms.user_id
 
-    const sub = await knex(`${orgao}users`).whereIn('id', teste).whereNotIn('id', forms)
+    const sub = await knex(`${orgao}users`).whereIn('id', teste).whereNotIn('id', alo)
     
     console.log(sub)
     
