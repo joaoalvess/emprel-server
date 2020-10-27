@@ -33,6 +33,7 @@ var inativoController = new InativoController_1.default();
 var subordinadoController = new SubordinadoController_1.default();
 routes.post("/:orgao/cadastrovisitante", visitController.create);
 routes.post("/:orgao/addsubordinados/:user_id", subordinadoController.create);
+routes.get("/:orgao/emailsub/:user_id", subordinadoController.show);
 routes.post("/:orgao/createuser", usersController.create);
 routes.delete("/:orgao/deleteuser/:id", usersController.delete);
 routes.get("/:orgao/users", usersController.index);

@@ -43,13 +43,13 @@ class PassRecover {
 
     const selectUser = await knex(`${orgao}subordinados`).where('user_id', user_id).first()
 
-    console.log(selectUser)
+    console.log(selectUser.subordinados)
 
     if(!selectUser){
       return response.status(404).json({ message: "Usuario sem subordinados" })
     }
 
-    const teste = selectUser
+    const teste = selectUser.subordinados
 
     const sub = knex(`${orgao}users`).whereIn('id', teste)
     
@@ -63,7 +63,7 @@ class PassRecover {
       html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
     }).then(info => {
       response.json({
-        selectUser
+        teste
       })
     }).catch(error => {
       response.send(error)

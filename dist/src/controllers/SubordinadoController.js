@@ -57,16 +57,17 @@ var PassRecover = /** @class */ (function () {
     }
     PassRecover.prototype.create = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var user_id, subordinados, orgao, user, insertId, id;
+            var user_id, subordinados, orgao, teste, user, insertId, id;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         user_id = request.params.user_id;
-                        subordinados = request.body.subordinados.subordinados;
+                        subordinados = request.body.subordinados;
                         orgao = request.params.orgao;
+                        teste = subordinados;
                         user = {
                             user_id: user_id,
-                            subordinados: subordinados
+                            subordinados: [teste]
                         };
                         return [4 /*yield*/, connection_1.default(orgao + "subordinados").insert(user)];
                     case 1:
@@ -79,11 +80,11 @@ var PassRecover = /** @class */ (function () {
     };
     PassRecover.prototype.show = function (request, response) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, email, cpf, orgao, user, pass, transporter, selectUser, matricula, id, crypto, code;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var user_id, orgao, user, pass, transporter, chefe, email, selectUser, teste, sub, crypto, code;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        _a = request.body, email = _a.email, cpf = _a.cpf;
+                        user_id = request.params.user_id;
                         orgao = request.params.orgao;
                         user = process.env.USER;
                         pass = process.env.PASS;
@@ -92,13 +93,19 @@ var PassRecover = /** @class */ (function () {
                             port: 587,
                             auth: { user: user, pass: pass }
                         });
-                        return [4 /*yield*/, connection_1.default(orgao + "users").where('email', email).where('cpf', cpf).first()];
+                        return [4 /*yield*/, connection_1.default(orgao + "users").where('id', user_id).first()];
                     case 1:
-                        selectUser = _b.sent();
+                        chefe = _a.sent();
+                        email = chefe.email;
+                        return [4 /*yield*/, connection_1.default(orgao + "subordinados").where('user_id', user_id).first()];
+                    case 2:
+                        selectUser = _a.sent();
+                        console.log(selectUser);
                         if (!selectUser) {
-                            return [2 /*return*/, response.status(404).json({ message: "Usuario não encontrado" })];
+                            return [2 /*return*/, response.status(404).json({ message: "Usuario sem subordinados" })];
                         }
-                        matricula = selectUser.matricula, id = selectUser.id;
+                        teste = selectUser;
+                        sub = connection_1.default(orgao + "users").whereIn('id', teste);
                         crypto = require("crypto");
                         code = crypto.randomBytes(3).toString('hex');
                         transporter.sendMail({
@@ -108,9 +115,7 @@ var PassRecover = /** @class */ (function () {
                             html: "<p style=\"font-size:18px;\">Seu codigo de verifica\u00E7\u00E3o \u00E9 <strong>" + code + "</strong></p>"
                         }).then(function (info) {
                             response.json({
-                                matricula: matricula,
-                                code: code,
-                                id: id
+                                selectUser: selectUser
                             });
                         }).catch(function (error) {
                             response.send(error);
