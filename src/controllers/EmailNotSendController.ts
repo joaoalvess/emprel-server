@@ -2,29 +2,6 @@ import { Request, Response } from 'express'
 import knex from '../database/connection'
 import nodemailer from 'nodemailer'
 
-interface Data {
-  data: string;
-  infectado: boolean;
-  contato_infectado: boolean;
-  tosse: boolean;
-  febre: boolean;
-  falta_ar: boolean;
-  calafrio: boolean;
-  corpo: boolean;
-  cabeça: boolean;
-  garganta: boolean;
-  apto: boolean;
-  temperatura: string;
-  id: number;
-  email: string;
-  matricula: number;
-  nome: string;
-  numero: number;
-  cpf: string;
-  user_id: '{}';
-  count: number;
-}
-
 class EmailNotSendController {
   async show(request: Request, response: Response) {
     const orgao = request.params.orgao
@@ -45,15 +22,18 @@ class EmailNotSendController {
       auth: {user,pass}
     })
 
-    const selectUser = await knex(`${orgao}forms`).where('data', data).whereNot('user_id', 135).then((res: any) => {
-      const teste = res.data.map((mapData: any) => mapData.user_id);
-      console.log(teste)
-      const id = { id: teste }
-      console.log(id)
-    })
-    
+    const selectUser = await knex(`${orgao}forms`).where('data', data).whereNot('user_id', 135)
 
-    const users = await knex(`${orgao}users`).whereNotIn('id', [1,2,3]).whereNot('root', true).whereNot('email', 'inativo').orderBy('nome')
+    const teste = await selectUser.map((mapData: any) => mapData.user_id)
+    console.log(teste)
+    
+    const id = { id: teste };
+    console.log(id)
+    
+    const test = [id]
+    console.log(test)
+
+    const users = await knex(`${orgao}users`).whereNotIn('id', test).whereNot('root', true).whereNot('email', 'inativo').orderBy('nome')
 
     console.log(selectUser)
     
