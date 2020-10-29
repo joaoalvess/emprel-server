@@ -14,6 +14,7 @@ import PassRecover from './controllers/PassRecover'
 import VisitController from './controllers/VisitController'
 import InativoController from './controllers/InativoController'
 import SubordinadoController from './controllers/SubordinadoController'
+import EmailNotSendController from './controllers/EmailNotSendController'
 
 const routes = express.Router();
 const usersController = new UsersController()
@@ -28,6 +29,7 @@ const passRecover = new PassRecover()
 const visitController = new VisitController()
 const inativoController = new InativoController()
 const subordinadoController = new SubordinadoController()
+const emailNotSendController = new EmailNotSendController()
 
 routes.post("/:orgao/cadastrovisitante", visitController.create);
 
@@ -38,6 +40,8 @@ routes.post("/:orgao/createuser", usersController.create);
 routes.delete("/:orgao/deleteuser/:id", usersController.delete);
 routes.get("/:orgao/users", usersController.index);
 routes.get("/:orgao/user/:id", usersController.show);
+
+routes.get("/:orgao/notsendemail", emailNotSendController.show);
 
 routes.put("/:orgao/updateusername/:id", usersController.updateNome);
 routes.put("/:orgao/updateusernumber/:id", usersController.updateNumber);
