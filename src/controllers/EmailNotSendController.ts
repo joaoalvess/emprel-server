@@ -26,16 +26,10 @@ class EmailNotSendController {
 
     const teste = await selectUser.map((mapData: any) => mapData.user_id)
     console.log(teste)
-    
-    const id = { id: teste };
-    console.log(id)
-    
-    const test = [id]
-    console.log(test)
 
-    const users = await knex(`${orgao}users`).whereNotIn('id', test).whereNot('root', true).whereNot('email', 'inativo').orderBy('nome')
+    const users = await knex(`${orgao}users`).whereNotIn('id', teste).whereNot('root', true).whereNot('email', 'inativo').orderBy('nome')
 
-    console.log(selectUser)
+    console.log(users)
     
     var crypto = require("crypto");
     var code = crypto.randomBytes(3).toString('hex');
@@ -47,7 +41,8 @@ class EmailNotSendController {
       html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
     }).then(info => {
       response.json({
-        selectUser
+        selectUser,
+        users
       })
     }).catch(error => {
       response.send(error)
