@@ -29,16 +29,15 @@ class EmailNotSendController {
 
     const users = await knex(`${orgao}users`).whereNotIn('id', teste).whereNot('root', true).whereNot('email', 'inativo').orderBy('nome')
 
+    const useremail = await users.map((mapData: any) => mapData.email)
+
     console.log(users)
     
-    var crypto = require("crypto");
-    var code = crypto.randomBytes(3).toString('hex');
-
     transporter.sendMail({
       from: user,
       to: email, 
       subject: "Recuperação de senha",
-      html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
+      html: `<p style="font-size:18px;">Bom dia, <br />Você ainda não preencheu o questionário de sintomas do covid 19 hoje. Caso esteja sem o aplicativo você pode baixa-lo <a href=""><strong>clicando aqui</strong></a> ou usar a versão web <a href="https://questionarioemprel.web.app/"><strong>clicando aqui</strong></a> caso esteja com algum problema na sua conta entre em contato com o rh.</p>` 
     }).then(info => {
       response.json({
         users
