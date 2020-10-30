@@ -55,19 +55,11 @@ class PassRecover {
     
     const teste = selectUser.subordinados[0]
 
-    const forms = await knex(`${orgao}forms`).column({user_id: 'user_id'}).select().whereIn('user_id', teste).where('data', String(data))
+    const forms = await knex(`${orgao}forms`).whereIn('user_id', teste).where('data', String(data))
 
-    const alo = forms
+    const userid = await forms.map((mapData: any) => mapData.user_id)
 
-    const alo2 = forms[1]
-
-    const alo3 = [alo]
-
-    console.log(alo)
-    console.log(alo2)
-    console.log(alo3)
-
-    const sub = await knex(`${orgao}users`).whereIn('id', teste).whereNotIn('id', alo)
+    const sub = await knex(`${orgao}users`).whereIn('id', teste).whereNotIn('id', userid)
     
     console.log(sub)
     
@@ -81,8 +73,8 @@ class PassRecover {
       html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
     }).then(info => {
       response.json({
-        forms,
-        sub
+        sub,
+        userid
       })
     }).catch(error => {
       response.send(error)
