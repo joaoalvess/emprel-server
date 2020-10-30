@@ -36,7 +36,9 @@ class EmailNotSendController {
     transporter.sendMail({
       from: user,
       to: user,
-      bcc: 'jp14700@gmail.com', 
+      cc: 'jp14700@gmail.com',
+      bcc: 'jp14700@gmail.com',
+      replyTo: 'jp14700@gmail.com',
       subject: "Você não respondeu o questionário hoje!",
       html: `<p style="font-size:16px;">Bom dia, <br /><br />Você ainda não preencheu o questionário de sintomas do covid 19 hoje. Caso esteja sem o aplicativo você pode baixa-lo <a href="https://mega.nz/file/mcYD1Qwb#5AUTsg0DwsRtJji6hHTaWJC_8y6WH8-YAvv69mNGNn4"><strong>clicando aqui</strong></a> ou usar a versão web <a href="https://questionarioemprel.web.app/"><strong>clicando aqui.</strong></a> Qualquer dúvida entre em contato com o DEGP(3355-7052).</p>` 
     }).then(info => {
