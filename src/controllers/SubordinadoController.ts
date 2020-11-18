@@ -63,16 +63,13 @@ class PassRecover {
 
     const sub = await knex(`${orgao}users`).whereIn('id', teste).whereNotIn('id', userid)
     
-    console.log(sub)
+    const naoRespondidos = await sub.map((mapData: any) => mapData.nome)
     
-    var crypto = require("crypto");
-    var code = crypto.randomBytes(3).toString('hex');
-
     transporter.sendMail({
       from: user,
       to: email, 
       subject: "Recuperação de senha",
-      html: `<p style="font-size:18px;">Seu codigo de verificação é <strong>${code}</strong></p>` 
+      html: `<p style="font-size:18px;">Bom dia, <br /> Os funcionários(as) ${naoRespondidos} ainda não preencheram o questionário de sintomas do covid 19 hoje. Pedimos sua colaboração no sentido de ratificar junto a seus subordinados a importância do preenchimento diário deste como medida de segurança e prevenção de todos.</p>` 
     }).then(info => {
       response.json({
         sub,
