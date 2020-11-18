@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import knex from '../database/connection'
+import nodemailer from 'nodemailer'
 
 class FormsController{
   async indexInativos(request: Request, response: Response) {
@@ -225,13 +226,24 @@ class FormsController{
     const select_id = request.params.id
     const orgao = request.params.orgao
 
-    const user = await knex(`${orgao}users`).where('id', select_id).first()
+    const user = process.env.USER
+    const pass = process.env.PASS
+
+    const emails = ['marciria.macedo@recife.pe.gov.br', 'michele.araujo@recife.pe.gov.br', 'alexandre.feitosa@recife.pe.gov.br ']
+
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      auth: {user,pass}
+    })
+
+    const userid = await knex(`${orgao}users`).where('id', select_id).first()
     
     if(!user) {
       return response.status(400).json({ message: "Usuario não encontrado" })
     }
 
-    const { id, nome, numero, email, matricula, cpf } = user
+    const { id, nome, numero, email, matricula, cpf } = userid
 
     const user_id = id
 
@@ -280,6 +292,21 @@ class FormsController{
     const insertId = await knex(`${orgao}forms`).insert(form)
 
     const form_id = insertId[0]
+
+    if (apto == false) {
+      transporter.sendMail({
+        from: user,
+        to: emails,
+        subject: `O ${nome} esta inapto ao trabalho!`,
+        html: `<p style="font-size:16px;">Bom dia, <br /><br />O funcionario ${nome} da matricula ${matricula} está inapto ao trabalho hoje!</p>` 
+      }).then(info => {
+        response.json({
+          emails
+        })
+      }).catch(error => {
+        response.send(error)
+      })
+    }
 
     return response.json({
       form_id,
