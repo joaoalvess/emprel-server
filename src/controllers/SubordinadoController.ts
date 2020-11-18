@@ -68,8 +68,8 @@ class PassRecover {
     transporter.sendMail({
       from: user,
       to: email, 
-      subject: "Recuperação de senha",
-      html: `<p style="font-size:18px;">Bom dia, <br /> Os funcionários(as) ${naoRespondidos} ainda não preencheram o questionário de sintomas do covid 19 hoje. Pedimos sua colaboração no sentido de ratificar junto a seus subordinados a importância do preenchimento diário deste como medida de segurança e prevenção de todos.</p>` 
+      subject: "Acompanhamento Covid-19",
+      html: `<p style="font-size:16px;">Bom dia, <br /><br /> Os funcionários(as) ${naoRespondidos} ainda não preencheram o questionário de sintomas do covid 19 hoje. Pedimos sua colaboração no sentido de ratificar junto a seus subordinados a importância do preenchimento diário deste como medida de segurança e prevenção de todos.</p>` 
     }).then(info => {
       response.json({
         sub,
