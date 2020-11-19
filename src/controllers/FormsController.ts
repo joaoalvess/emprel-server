@@ -229,8 +229,6 @@ class FormsController{
     const user = process.env.USER
     const pass = process.env.PASS
 
-    const emails = ['marciria.macedo@recife.pe.gov.br', 'michele.araujo@recife.pe.gov.br', 'alexandre.feitosa@recife.pe.gov.br ']
-
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
@@ -292,6 +290,8 @@ class FormsController{
     const insertId = await knex(`${orgao}forms`).insert(form)
 
     const form_id = insertId[0]
+
+    const emails = ['marciria.macedo@recife.pe.gov.br', 'michele.araujo@recife.pe.gov.br', email]
 
     if (apto == false) {
       transporter.sendMail({
