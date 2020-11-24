@@ -29,6 +29,15 @@ class UsersController{
 
     return response.json({messager: "email atualizada"})
   }
+  async updateSenha(request: Request, response: Response) {
+    const { id } = request.params
+    const { senha } = request.body
+    const orgao = request.params.orgao
+
+    await knex(`${orgao}users`).where('id', id).update({ email: senha })
+
+    return response.json({messager: "senha atualizada"})
+  }
   async updateNumber(request: Request, response: Response) {
     const { id } = request.params
     const { numero } = request.body

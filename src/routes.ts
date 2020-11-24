@@ -46,6 +46,7 @@ routes.get("/:orgao/notsendemail", emailNotSendController.show);
 routes.put("/:orgao/updateusername/:id", usersController.updateNome);
 routes.put("/:orgao/updateusernumber/:id", usersController.updateNumber);
 routes.put("/:orgao/updateuseremail/:id", usersController.updateEmail);
+routes.put("/:orgao/updateusersenha/:id", usersController.updateSenha);
 routes.put("/:orgao/updateusercpf/:id", usersController.updateCpf);
 routes.put("/:orgao/updateusermatricula/:id", usersController.updateMatricula);
 
